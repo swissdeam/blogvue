@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
-use http\Client\Curl\User;
+use http\Env\Response;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -19,6 +23,25 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
+    public function login(Request $request)
+    {
+        $name = $request->get("name");
+        $email = $request->get("email");
+        $password = $request->get("password");
+
+        $exist = User::query()->where("email", $email)->first();
+        if (!$exist) {
+            throw ValidationException::withMessages(["email"=>"Пользователя с таким email не существует"]);
+        }
+
+
+        if (Hash::check($password, $exist->password)){
+            return response()->json();
+        }
+
+        return response()->json(["message"=>"Неверный пароль"], 401);
+
+    }
 
     use AuthenticatesUsers;
 

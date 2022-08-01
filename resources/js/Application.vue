@@ -9,7 +9,6 @@
         <a v-if="token" @click.prevent="logout" href=#>Logout</a>
         <main class="container">
             <router-view></router-view>
-
         </main>
     </div>
 </template>

@@ -15,7 +15,6 @@
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
 
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -24,8 +23,7 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app" class="p-5">
-    </div>
+    <div id="app" class="p-5"></div>
 </body>
 </html>
 

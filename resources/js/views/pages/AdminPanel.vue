@@ -37,7 +37,9 @@ export default {
             axios.get('api/admin')
                 .then(res => {
                     this.people = res.data
-                })
+                }).catch(error => {
+                console.log(error)
+            })
         }
     }
 }

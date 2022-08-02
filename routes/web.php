@@ -1,7 +1,14 @@
 <?php
-
+//
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GetController;
+use App\Http\Controllers\TokenController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Person\AdminController;
+use Illuminate\Http\Request;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,31 +21,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{any}', function () {
-    return view('index');
-})->where('any','.*');
 
-Route::prefix('user')->group(function () {
-    Route::view('/blog', 'user.blog');
 
-});
-Route::prefix('user')->group(function () {
-    Route::view('/blog', 'user.blog');
 
-});
-Route::prefix('user')->group(function () {
+
+//Route::get('/{any}', function () {
+//    return view('index');
+//})->where('any','.*');
+
+//Route::prefix('user')->group(function () {
+//    Route::view('/blog', 'user.blog');
+
+
+/*Route::prefix('user')->group(function () {
     Route::get('/blog', function () {
         // Matches The "/admin/users" URL
     });
-});
+});*/
 
+/*Route::view('/get','get.index');
 Route::view('/get','get.index');
 Route::view('/get','get.index');
-Route::view('/get','get.index');
-Route::view('/get','get.index');
-Route::view('/get','get.index');
+Route::view('/get','get.index');*/
+//Route::view('/get','get.index');
 
-Auth::routes();
+//Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

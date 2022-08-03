@@ -5,7 +5,7 @@ import BlogPage from "../views/BlogPage";
 import LoginPage from "../views/LoginPage";
 import AdminPanel from "../views/AdminPanel";
 import RegistrationPage from "../views/RegistrationPage";
-import Get from "../views/Get";
+import Get from "../views/GetPage";
 
 
 const routes=[

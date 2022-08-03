@@ -1,18 +1,50 @@
 <template>
-<h1>регистрация</h1>
-    <input v-model="name" type="name" placeholder="name" class="form-control">
-    <input v-model="email" type="email" placeholder="email" class="form-control">
-    <input v-model="password" type="password" placeholder="password" class="form-control">
-    <input v-model="password_confirmation" type="password" placeholder="password_confirmation" class="form-control">
-    <input v-model="is_admin"  type="radio" value="yes">
-<!--    <input v-model="is_admin" placeholder="yes if admin">-->
+<!--<h1>регистрация</h1>-->
+<!--    <input v-model="name" type="name" placeholder="name" class="form-control">-->
+<!--    <input v-model="email" type="email" placeholder="email" class="form-control">-->
+<!--    <input v-model="password" type="password" placeholder="password" class="form-control">-->
+<!--    <input v-model="password_confirmation" type="password" placeholder="password_confirmation" class="form-control">-->
+<!--    <input v-model="is_admin"  type="radio" value="yes">-->
+<!--&lt;!&ndash;    <input v-model="is_admin" placeholder="yes if admin">&ndash;&gt;-->
 
-    <input @click.prevent="register" type="submit" value="register" class="btn btn-primary">
+<!--    <input @click.prevent="register" type="submit" value="register" class="btn btn-primary">-->
+
+  <main class="form-signin w-100 m-auto">
+    <form>
+      <!--    <img class="mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">-->
+      <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+
+      <div class="form-floating">
+        <input v-model="name" type="text" class="form-control" id="floatingInput" placeholder="Your Name">
+        <label for="floatingInput">Yor name</label>
+      </div>
+      <div class="form-floating">
+        <input v-model="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Email address</label>
+      </div>
+      <div class="form-floating">
+        <input v-model="Password" type="password" class="form-control" id="floatingInput" placeholder="Password">
+        <label for="floatingInput">Password</label>
+      </div>
+      <div class="form-floating">
+        <input v-model="password_confirmation" type="password" class="form-control" id="floatingPassword" placeholder="Password Confirmation">
+        <label for="floatingPassword">Password Confirmation</label>
+      </div>
+
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="Is admin"> I'm admin
+            </label>
+          </div>
+      <button @click.prevent="register" class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+      <p class="mt-5 mb-3 text-muted">© 2017–2022</p>
+    </form>
+  </main>
 
 </template>
 
 <script>
-import axios from "axios";
+import axios from "@/utils/axios";
 export default {
     name: "RegistrationPage",
 
@@ -31,7 +63,7 @@ export default {
             axios.get('/sanctum/csrf-cookie')
                 .then(res => {
                   console.log(res);
-                    axios.post('/register', {
+                    axios.post('api/user/register', {
                         name: this.name,
                         email: this.email,
                         password: this.password,
@@ -43,7 +75,7 @@ export default {
                             localStorage.setItem('x_xsrf_token', res.config.headers['X-XSRF-TOKEN'])
                             console.log(res.data)
                             localStorage.setItem('is admin', this.is_admin)
-                            this.$router.push({name: 'BlogPage'})
+                            this.router.push({name: 'BlogPage'})
                         })
                 })
         }

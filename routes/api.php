@@ -18,13 +18,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->group( function () {
-    Route::get('/users/auth', AuthController::class);
+//Route::middleware('auth:sanctum')->group( function () {
+//    Route::get('/user', AuthController::class);
+//});
+
+Route::middleware('auth:sanctum')->post('/user/login', function (Request $request){
+    return $request->user();
+});
+Route::middleware('auth:sanctum')->post('/user/register', function (Request $request){
+    return $request->user();
 });
 
+Route::get('/test', function () {
+    return response() -> json(['message' => 'good'], 200);
+});
 
-
-Route::post('/sanctum/token', TokenController::class);
+//Route::post('/sanctum/csrf-cookie', TokenController::class);
 
 
 Route::group(['middleware'=>'auth:sanctum'], function(){

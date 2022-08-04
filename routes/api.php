@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GetController;
 use App\Http\Controllers\TokenController;
-use App\Http\Controllers\AuthController;
+//use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Person\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,25 +20,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:sanctum')->group( function () {
-//    Route::get('/user', AuthController::class);
+//Route::middleware(['auth:sanctum'])->group( function () {
+//    Route::get('/users/login', AuthController::class);
 //});
 
-Route::middleware('auth:sanctum')->post('/user/login', function (Request $request){
-    return $request->user();
+Route::group(['middleware' => 'api'], function () {
+    Route::post('/user/login',  [AuthController::Class, 'login']);
 });
-Route::middleware('auth:sanctum')->post('/user/register', function (Request $request){
-    return $request->user();
-});
+//Route::middleware('loginReq:sanctum')->post('/user/register', function (Request $request){
+//    return $request->user();
+//});
 
 Route::get('/test', function () {
     return response() -> json(['message' => 'good'], 200);
 });
+Route::post('/logout', function () {
+    return response() -> json(['message' => 'logout'], 200);
+});
 
-//Route::post('/sanctum/csrf-cookie', TokenController::class);
+Route::post('/sanctum/token', TokenController::class);
 
 
-Route::group(['middleware'=>'auth:sanctum'], function(){
+Route::group(['middleware'=>'loginReq:sanctum'], function(){
     Route::get('/get', GetController::class);
 });
 

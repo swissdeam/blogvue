@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use UserResource;
-use Illuminate\Support\Facades\Auth;
-//use Illuminate\Routing\Controller as BaseController;
+use App\Models\User;
+use App\Http\Requests\api\LoginReq;
+use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+
 
 class AuthController extends Controller
 {
-    public function __invoke()
+    public function login(LoginReq $request): \Illuminate\Http\JsonResponse
     {
-        return new UserResource(Auth::user());
+
+        $user = User::where('email', $request->get('email'))->firstOrFail();
+        if (!Hash::check($request->get('password'), $user -> password)) {
+        throw new HttpException('404', 'Некорректный Пароль');
+    }
+        $token = $user->createToken('Token');
+        return response()->json($token, 200);
+        //return Auth::user();
+
     }
 }

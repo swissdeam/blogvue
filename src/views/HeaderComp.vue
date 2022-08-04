@@ -10,7 +10,7 @@
 
       <ul v-if="token" class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li v-for="link in links" v-bind:key="link">
-          <router-link to={{link.href}} class="nav-link px-2 link-secondary">{{ link.title }}</router-link>
+          <router-link :to=link.href class="nav-link px-2 link-secondary">{{ link.title }}</router-link>
 <!--          <a :href="link.href" class="nav-link px-2 link-secondary">{{ link.title }}</a>-->
         </li>
       </ul>
@@ -35,7 +35,7 @@ export default {
       links: [
         {
           title: "get",
-          href: "api/get"
+          href: "/api/get"
         },
         {
           title: "Blog",
@@ -89,11 +89,11 @@ export default {
     },
 
     logout(){
-      axios.post('api/logout')
+      axios.post('/api/logout')
           .then(res=> {
             localStorage.removeItem('x_xsrf_token')
             localStorage.removeItem('is admin')
-            this.router.push({name: 'LoginPage'})
+            this.$router.push({name: 'LoginPage'})
             console.log(res)
           })
     }

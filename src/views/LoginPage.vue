@@ -49,7 +49,7 @@ export default {
                         console.log(response, "логин");
                         localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN'])
                         //localStorage.setItem('is admin', res.data.is_admin)
-                        this.router.push({name: 'BlogPage'})
+                        this.$router.push({name: 'BlogPage'})
                     })
                     .catch(err => {
                         console.log(err)

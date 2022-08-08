@@ -31,7 +31,7 @@ const routes=[
   },
 
   {
-    path: '/user/registration',
+    path: '/user/register',
     name: 'RegistrationPage',
     component: RegistrationPage
   },

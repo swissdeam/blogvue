@@ -28,6 +28,7 @@
 <script>
 import axios from "../utils/axios";
 
+
 export default {
     name: "LoginPage",
 
@@ -40,15 +41,14 @@ export default {
 
     methods: {
         Login() {
-
             axios.get('/sanctum/csrf-cookie').
-            then(response => {
-                console.log(response, "токен")
+            then(() => {
                 axios.post('/api/user/login', {email: this.email, password: this.password})
                     .then(response=> {
                         console.log(response, "логин");
-                        localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN'])
-                        //localStorage.setItem('is admin', res.data.is_admin)
+                        localStorage.setItem('x_xsrf_token', response.data.Token.plainTextToken)
+                        localStorage.setItem('is admin', response.data.is_admin)
+                        console.log(response, "логин")
                         this.$router.push({name: 'BlogPage'})
                     })
                     .catch(err => {

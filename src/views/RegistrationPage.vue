@@ -16,14 +16,14 @@
 
       <div class="form-floating">
         <input v-model="name" type="text" class="form-control" id="floatingInput" placeholder="Your Name">
-        <label for="floatingInput">Yor name</label>
+        <label for="floatingInput">Your name</label>
       </div>
       <div class="form-floating">
         <input v-model="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
         <label for="floatingInput">Email address</label>
       </div>
       <div class="form-floating">
-        <input v-model="Password" type="password" class="form-control" id="floatingInput" placeholder="Password">
+        <input v-model="password" type="password" class="form-control" id="floatingInput" placeholder="Password">
         <label for="floatingInput">Password</label>
       </div>
       <div class="form-floating">
@@ -33,7 +33,7 @@
 
           <div class="checkbox mb-3">
             <label>
-              <input type="checkbox" value="Is admin"> I'm admin
+              <input v-model="is_admin" type="checkbox" value="Is admin"> I'm admin
             </label>
           </div>
       <button @click.prevent="register" class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
@@ -54,16 +54,15 @@ export default {
             email: null,
             password: null,
             password_confirmation: null,
-            is_admin: "no",
+            is_admin: false,
         }
     },
 
     methods: {
         register() {
             axios.get('/sanctum/csrf-cookie')
-                .then(res => {
-                  console.log(res);
-                    axios.post('api/user/register', {
+                .then(() => {
+                    axios.post('/api/user/register', {
                         name: this.name,
                         email: this.email,
                         password: this.password,
@@ -72,10 +71,15 @@ export default {
 
                     })
                         .then(res=>{
-                            localStorage.setItem('x_xsrf_token', res.config.headers['X-XSRF-TOKEN'])
+                            localStorage.setItem('x_xsrf_token', res.data.Token.plainTextToken)
                             console.log(res.data)
-                            localStorage.setItem('is admin', this.is_admin)
-                            this.router.push({name: 'BlogPage'})
+                          if (res.data.is_admin === true) {
+                            res.data.is_admin = 1;
+                          } else {
+                            res.data.is_admin = 0;
+                          }
+                            localStorage.setItem('is admin', res.data.is_admin)
+                            this.$router.push({name: 'BlogPage'})
                         })
                 })
         }

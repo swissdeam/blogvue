@@ -8,19 +8,20 @@
         </svg>
       </a>
 
-      <ul v-if="token" class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li v-for="link in links" v-bind:key="link">
+      <ul v-if="token" v-bind:key='token' class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+<!--        <span>{{token}}</span>-->
+        <li v-for="link in links"  v-bind:key="link">
           <router-link :to=link.href class="nav-link px-2 link-secondary">{{ link.title }}</router-link>
 <!--          <a :href="link.href" class="nav-link px-2 link-secondary">{{ link.title }}</a>-->
         </li>
       </ul>
 
       <div class="col-md-3 text-end">
-        <router-link to='/user/login' class="btn btn-outline-primary me-2">Login</router-link>
-        <router-link to='/user/registration' class="btn btn-outline-primary me-2">Sign-up</router-link>
+
+        <router-link v-if="!token" to='/user/login' class="btn btn-outline-primary me-2">Login</router-link>
+        <router-link v-if="!token" to='/user/register' class="btn btn-outline-primary me-2">Sign-up</router-link>
         <router-link v-if="token" @click.prevent="logout" to=# class="btn btn-outline-primary me-2">Logout</router-link>
-<!--        <button type="button" class="btn btn-outline-primary me-2">Login</button>-->
-<!--        <button type="button" class="btn btn-primary">Sign-up</button>-->
+        <router-link v-if="is_admin === '1'" to='/admin' class="btn btn-outline-primary me-2">Admin Panel</router-link>
       </div>
   </header>
 </template>
@@ -30,6 +31,8 @@
 import axios from "axios";
 
 export default {
+  components: {},
+
   data() {
     return {
       links: [
@@ -57,10 +60,10 @@ export default {
         //   title: "Логин",
         //   href: "/user/login"
         // },
-        {
-          title: "админка",
-          href: "/admin"
-        },
+        // {
+        //   title: "админка",
+        //   href: "/admin"
+        // },
       ],
       token: null,
       is_admin:null,
@@ -71,6 +74,12 @@ export default {
     this.getToken()
     this.getIsAdmin()
     this.getTest()
+    this.getIsAdmin()
+  },
+
+  computed() {
+    this.token = localStorage.getItem('x_xsrf_token')
+    this.is_admin = localStorage.getItem('is admin')
   },
 
   methods:{
@@ -94,6 +103,8 @@ export default {
             localStorage.removeItem('x_xsrf_token')
             localStorage.removeItem('is admin')
             this.$router.push({name: 'LoginPage'})
+            this.getToken()
+            this.getIsAdmin()
             console.log(res)
           })
     }

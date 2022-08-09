@@ -5,8 +5,11 @@ use App\Http\Controllers\GetController;
 use App\Http\Controllers\TokenController;
 //use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Person\AdminController;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Auth\AuthManager;
 
 
 /*
@@ -20,17 +23,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware(['auth:sanctum'])->group( function () {
-//    Route::get('/users/login', AuthController::class);
-//});
+Route::group(['middleware'=>'auth:api'], function () {
+    Route::get('/admin/check', function (Request $request){
+        return $request->user()->is_admin;
+    });
+
+});
 
 Route::group(['middleware' => 'api'], function () {
     Route::post('/user/login',  [AuthController::Class, 'login']);
     Route::post('/user/register',  [AuthController::Class, 'register']);
 });
-//Route::middleware('loginReq:sanctum')->post('/user/register', function (Request $request){
+
+//Route::get('/admin/check', function (Request $request){
 //    return $request->user();
 //});
+
+
 
 Route::get('/test', function () {
     return response() -> json(['message' => 'good'], 200);

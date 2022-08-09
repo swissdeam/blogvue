@@ -10,6 +10,7 @@ class AdminController extends Controller
 {
     public function __invoke()
     {
+
         $people = User::all();
         return $people;
     }

@@ -39,6 +39,9 @@ const routes=[
     path: '/admin',
     name: 'AdminPanel',
     component: AdminPanel
+  },
+  {
+    path: '/admin/check',
   }
 
 ];

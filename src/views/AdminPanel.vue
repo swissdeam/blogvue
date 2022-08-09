@@ -20,13 +20,14 @@
 
 <script>
 
-import axios from "axios";
+import axios from "@/utils/axios";
 export default {
     name: "AdminPanel",
 
     data(){
         return{
-            people:null
+            people:null,
+            adminCheck: null
         }
     },
 
@@ -36,6 +37,10 @@ export default {
 
     methods: {
         getPeople(){
+          axios.get('/api/admin/check')
+              .then(res=>{
+                this.adminCheck = res.data
+              })
             axios.get('/api/admin')
                 .then(res => {
                     this.people = res.data

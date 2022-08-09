@@ -10,7 +10,7 @@
 <!--    <input @click.prevent="register" type="submit" value="register" class="btn btn-primary">-->
 
   <main class="form-signin w-100 m-auto">
-    <form>
+    <form @submit.prevent="onSubmit">
       <!--    <img class="mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">-->
       <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
 
@@ -36,7 +36,7 @@
               <input v-model="is_admin" type="checkbox" value="Is admin"> I'm admin
             </label>
           </div>
-      <button @click.prevent="register" class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
       <p class="mt-5 mb-3 text-muted">© 2017–2022</p>
     </form>
   </main>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import axios from "@/utils/axios";
+import {mapActions, mapGetters} from "vuex";
 export default {
     name: "RegistrationPage",
 
@@ -58,31 +58,17 @@ export default {
         }
     },
 
-    methods: {
-        register() {
-            axios.get('/sanctum/csrf-cookie')
-                .then(() => {
-                    axios.post('/api/user/register', {
-                        name: this.name,
-                        email: this.email,
-                        password: this.password,
-                        password_confirmation: this.password_confirmation,
-                        is_admin: this.is_admin,
+  computed:{
+    ...mapGetters(["getRegister"])
+  },
 
-                    })
-                        .then(res=>{
-                            localStorage.setItem('x_xsrf_token', res.data.Token.plainTextToken)
-                            console.log(res.data)
-                          if (res.data.is_admin === true) {
-                            res.data.is_admin = 1;
-                          } else {
-                            res.data.is_admin = 0;
-                          }
-                            localStorage.setItem('is admin', res.data.is_admin)
-                            this.$router.push({name: 'BlogPage'})
-                        })
-                })
-        }
+
+  methods: {
+      ...mapActions(["REGISTER"]),
+
+      onSubmit() {
+        this.REGISTER({name: this.name, email: this.email, password: this.password, password_confirmation: this.password_confirmation, is_admin: this.is_admin})
+      }
     }
 }
 </script>

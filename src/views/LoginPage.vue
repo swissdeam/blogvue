@@ -1,6 +1,6 @@
 <template>
   <main class="form-signin w-100 m-auto">
-    <form>
+    <form @submit.prevent="onSubmit">
       <!--    <img class="mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">-->
       <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
@@ -18,7 +18,7 @@
       <!--        <input type="checkbox" value="remember-me"> Remember me-->
       <!--      </label>-->
       <!--    </div>-->
-      <button @click.prevent="Login" class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
       <p class="mt-5 mb-3 text-muted">© 2017–2022</p>
     </form>
 </main>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import axios from "../utils/axios";
+import {mapActions, mapGetters} from "vuex";
 
 
 export default {
@@ -39,24 +39,20 @@ export default {
         }
     },
 
+  computed: {
+    ...mapGetters(["getLogin"])
+  },
+
     methods: {
-        Login() {
-            axios.get('/sanctum/csrf-cookie').
-            then(() => {
-                axios.post('/api/user/login', {email: this.email, password: this.password})
-                    .then(response=> {
-                        console.log(response, "логин");
-                        localStorage.setItem('x_xsrf_token', response.data.Token.plainTextToken)
-                        localStorage.setItem('is admin', response.data.is_admin)
-                        console.log(response, "логин")
-                        this.$router.push({name: 'BlogPage'})
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        console.log(err.response)
-                    })
-            })
-        }
+    ...mapActions(["LOGIN"]),
+
+
+      onSubmit() {
+        this.LOGIN({email: this.email, password: this.password})
+      }
+    },
+
+    mounted() {
     }
 }
 </script>

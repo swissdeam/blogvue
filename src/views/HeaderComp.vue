@@ -8,7 +8,7 @@
         </svg>
       </a>
 
-      <ul v-if="token" v-bind:key='token' class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <ul v-if="getTokenIsAdmin.token" v-bind:key='getTokenIsAdmin.token' class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
 <!--        <span>{{token}}</span>-->
         <li v-for="link in links"  v-bind:key="link">
           <router-link :to=link.href class="nav-link px-2 link-secondary">{{ link.title }}</router-link>
@@ -18,10 +18,10 @@
 
       <div class="col-md-3 text-end">
 
-        <router-link v-if="!token" to='/user/login' class="btn btn-outline-primary me-2">Login</router-link>
-        <router-link v-if="!token" to='/user/register' class="btn btn-outline-primary me-2">Sign-up</router-link>
-        <router-link v-if="token" @click.prevent="logout" to=# class="btn btn-outline-primary me-2">Logout</router-link>
-        <router-link v-if="is_admin === '1'" to='/admin' class="btn btn-outline-primary me-2">Admin Panel</router-link>
+        <router-link v-if="!getTokenIsAdmin.token" to='/user/login' class="btn btn-outline-primary me-2">Login</router-link>
+        <router-link v-if="!getTokenIsAdmin.token" to='/user/register' class="btn btn-outline-primary me-2">Sign-up</router-link>
+        <router-link v-if="getTokenIsAdmin.token" @click.prevent="logout" to=# class="btn btn-outline-primary me-2">Logout</router-link>
+        <router-link v-if="getTokenIsAdmin.is_admin === '1'" to='/admin' class="btn btn-outline-primary me-2">Admin Panel</router-link>
       </div>
   </header>
 </template>
@@ -29,6 +29,7 @@
 <script>
 
 import axios from "axios";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   components: {},
@@ -71,43 +72,27 @@ export default {
   },
 
   mounted(){
-    this.getToken()
-    this.getIsAdmin()
     this.getTest()
-    this.getIsAdmin()
+    this.TOKEN_IS_ADMIN()
   },
 
-  computed() {
-    this.token = localStorage.getItem('x_xsrf_token')
-    this.is_admin = localStorage.getItem('is admin')
+  computed:{
+    ...mapGetters(["getTokenIsAdmin", "getLogout"]),
   },
 
   methods:{
-    getToken(){
-      this.token=localStorage.getItem('x_xsrf_token')
-    },
-    getIsAdmin(){
-      this.is_admin = localStorage.getItem('is admin')
-    },
-
     getTest(){
       axios.get('/api/test')
           .then(res=>{
             console.log(res)
           })
     },
+    ...mapActions(["LOGOUT", "TOKEN_IS_ADMIN"]),
 
     logout(){
-      axios.post('/api/logout')
-          .then(res=> {
-            localStorage.removeItem('x_xsrf_token')
-            localStorage.removeItem('is admin')
-            this.$router.push({name: 'LoginPage'})
-            this.getToken()
-            this.getIsAdmin()
-            console.log(res)
-          })
+      this.LOGOUT()
     }
+
   }
 
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CreatePostController;
 use App\Http\Controllers\GetController;
 use App\Http\Controllers\TokenController;
 //use App\Http\Controllers\AuthController;
@@ -27,6 +28,12 @@ Route::group(['middleware'=>'auth:api'], function () {
     Route::get('/admin/check', function (Request $request){
         return $request->user()->is_admin;
     });
+    Route::get('/user/home', function (Request $request){
+        return $request->user();
+    });
+//    Route::get('/user/blog',)
+//    });
+    Route::post('/user/blog/create-post', [CreatePostController::class, 'creating']);
 
 });
 
@@ -38,8 +45,6 @@ Route::group(['middleware' => 'api'], function () {
 //Route::get('/admin/check', function (Request $request){
 //    return $request->user();
 //});
-
-
 
 Route::get('/test', function () {
     return response() -> json(['message' => 'good'], 200);

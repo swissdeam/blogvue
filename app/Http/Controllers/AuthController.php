@@ -22,7 +22,8 @@ class AuthController extends Controller
     }
         $token = $user->createToken('Token');
         $is_admin = $user->is_admin;
-        return response()->json(array_merge_recursive(['Token'=> $token], ['is_admin'=> $is_admin]), 200);
+        $name = $user->name;
+        return response()->json(array_merge_recursive(['Token'=> $token], ['is_admin'=> $is_admin], ['name'=> $name]), 200);
         //return Auth::user();
 
     }

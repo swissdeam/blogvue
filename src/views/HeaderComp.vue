@@ -1,7 +1,7 @@
 <template>
 
   <header
-      class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom align-center">
       <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
         <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
           <use xlink:href="#bootstrap"></use>
@@ -16,12 +16,12 @@
         </li>
       </ul>
 
-      <div class="col-md-3 text-end">
-
+      <div class="col-md-4 text-end">
+        <router-link v-if="getTokenIsAdmin.token" to='/user/home' class="btn btn-success me-2">{{getTokenIsAdmin.name}}</router-link>
         <router-link v-if="!getTokenIsAdmin.token" to='/user/login' class="btn btn-outline-primary me-2">Login</router-link>
         <router-link v-if="!getTokenIsAdmin.token" to='/user/register' class="btn btn-outline-primary me-2">Sign-up</router-link>
         <router-link v-if="getTokenIsAdmin.token" @click.prevent="logout" to=# class="btn btn-outline-primary me-2">Logout</router-link>
-        <router-link v-if="getTokenIsAdmin.is_admin === '1'" to='/admin' class="btn btn-outline-primary me-2">Admin Panel</router-link>
+        <router-link v-if="getTokenIsAdmin.is_admin === '1'" to='/adminpanel' class="btn btn-outline-primary me-2">Admin Panel</router-link>
       </div>
   </header>
 </template>
@@ -37,26 +37,30 @@ export default {
   data() {
     return {
       links: [
+        // {
+        //   title: "get",
+        //   href: "/api/get"
+        // },
         {
-          title: "get",
-          href: "/api/get"
+          title: "Create Post",
+          href: "/user/blog/create-post"
         },
         {
-          title: "Blog",
+          title: "all posts",
           href: "/user/blog"
         },
         // {
         //   title: "регистрация",
         //   href: "/user/registration"
         // },
-        {
-          title: "главная",
-          href: "/home"
-        },
-        {
-          title: "блоr",
-          href: "/blog"
-        },
+        // {
+        //   title: "Профиль",
+        //   href: "/user/home"
+        // },
+        // {
+        //   title: "блоr",
+        //   href: "/blog"
+        // },
         // {
         //   title: "Логин",
         //   href: "/user/login"

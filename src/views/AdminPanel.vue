@@ -1,54 +1,48 @@
 <template>
-<h1>список пользователей </h1>
-    <table>
-        <tr>
-            <td>ID</td>
-            <td>Name</td>
-            <td>email</td>
-            <td>is admin</td>
-
-        </tr>
-        <tr v-for="person in people" v-bind:key="person.id">
-            <td>{{person.id}}</td>
-            <td>{{person.name}}</td>
-            <td>{{person.email}}</td>
-            <td>{{ person.is_admin }}</td>
-
-        </tr>
-    </table>
+  <h1>список пользователей </h1>
+  <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="person in this.getAdmin" v-bind:key="person.id">
+      <th scope="row">{{ person.id }}</th>
+      <td>{{ person.name }}</td>
+      <td>{{ person.email }}</td>
+      <td v-if="person.is_admin===1">admin</td>
+      <td v-else>user</td>
+    </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
 
-import axios from "@/utils/axios";
+
+import {mapActions, mapGetters} from "vuex";
+
+
 export default {
-    name: "AdminPanel",
+  name: "AdminPanel",
 
-    data(){
-        return{
-            people:null,
-            adminCheck: null
-        }
-    },
+  mounted() {
+    console.log("обновился")
+    this.CHECK_ADMIN()
+  },
 
-    mounted() {
-        this.getPeople()
-    },
 
-    methods: {
-        getPeople(){
-          axios.get('/api/admin/check')
-              .then(res=>{
-                this.adminCheck = res.data
-              })
-            axios.get('/api/admin')
-                .then(res => {
-                    this.people = res.data
-                }).catch(error => {
-                console.log(error)
-            })
-        }
-    }
+  computed: {
+    ...mapGetters(["getCheckAdmin", "getAdmin"]),
+  },
+  methods: {
+    ...mapActions(["CHECK_ADMIN"]),
+  }
+
 }
 </script>
 

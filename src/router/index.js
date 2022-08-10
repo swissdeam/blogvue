@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import HomePage from "../views/HomePage";
-import BlogPage from "../views/BlogPage";
+import CreatePostPage from "../views/CreatePostPage";
 import LoginPage from "../views/LoginPage";
 import AdminPanel from "../views/AdminPanel";
 import RegistrationPage from "../views/RegistrationPage";
 import Get from "../views/GetPage";
+import BlogPage from "../views/BlogPage";
 
 
 const routes=[
@@ -15,12 +16,17 @@ const routes=[
     component: Get
   },
   {
+    path: '/user/blog/create-post',
+    name: 'CreatePostPage',
+    component: CreatePostPage
+  },
+  {
     path: '/user/blog',
     name: 'BlogPage',
     component: BlogPage
   },
   {
-    path: '/home',
+    path: '/user/home',
     name: 'HomePage',
     component: HomePage
   },
@@ -36,13 +42,17 @@ const routes=[
     component: RegistrationPage
   },
   {
-    path: '/admin',
+    path: '/adminpanel',
     name: 'AdminPanel',
     component: AdminPanel
   },
   {
-    path: '/admin/check',
-  }
+    path: '/admin/check'
+  },
+  {
+    path: '/admin'
+  },
+
 
 ];
 

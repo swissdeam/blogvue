@@ -1,10 +1,10 @@
 <template>
-    <h1>Body of Blog</h1>
+<h1>all of my posts</h1>
 </template>
 
 <script>
 export default {
-    name: "BlogPage"
+  name: "BlogPage"
 }
 </script>
 

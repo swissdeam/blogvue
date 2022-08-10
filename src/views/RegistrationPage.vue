@@ -1,14 +1,4 @@
 <template>
-<!--<h1>регистрация</h1>-->
-<!--    <input v-model="name" type="name" placeholder="name" class="form-control">-->
-<!--    <input v-model="email" type="email" placeholder="email" class="form-control">-->
-<!--    <input v-model="password" type="password" placeholder="password" class="form-control">-->
-<!--    <input v-model="password_confirmation" type="password" placeholder="password_confirmation" class="form-control">-->
-<!--    <input v-model="is_admin"  type="radio" value="yes">-->
-<!--&lt;!&ndash;    <input v-model="is_admin" placeholder="yes if admin">&ndash;&gt;-->
-
-<!--    <input @click.prevent="register" type="submit" value="register" class="btn btn-primary">-->
-
   <main class="form-signin w-100 m-auto">
     <form @submit.prevent="onSubmit">
       <!--    <img class="mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">-->

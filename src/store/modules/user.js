@@ -7,6 +7,10 @@ const user = {
         register: {},
         logout: {},
         token_is_admin: {},
+        check_admin: {},
+        admin: {},
+        user_info:{},
+        create_post:{}
     },
     actions: {
         LOGIN: async ({commit, dispatch}, {email, password}) => {
@@ -16,6 +20,7 @@ const user = {
                         console.log(response, "логин");
                         localStorage.setItem('x_xsrf_token', response.data.Token.plainTextToken)
                         localStorage.setItem('is admin', response.data.is_admin)
+                        localStorage.setItem('name', response.data.name)
                         dispatch("TOKEN_IS_ADMIN")
                         commit("updateLogin", response.data)
                         console.log(response, "логин")
@@ -49,32 +54,81 @@ const user = {
         TOKEN_IS_ADMIN: ({commit}) => {
             const token = localStorage.getItem('x_xsrf_token')
             const is_admin = localStorage.getItem('is admin')
-            commit("updateTokenIsAdmin", {token, is_admin})
+            const name = localStorage.getItem('name')
+            commit("updateTokenIsAdmin", {token, is_admin, name})
         },
         LOGOUT: async ({commit, dispatch}) => {
             axios.post('/api/logout')
                 .then(() => {
                     localStorage.removeItem('x_xsrf_token')
                     localStorage.removeItem('is admin')
+                    localStorage.removeItem('name')
                     router.push({name: 'LoginPage'})
                     commit("updateLogout", "success")
                     dispatch("TOKEN_IS_ADMIN")
                 })
 
         },
-    },
-    mutations: {
-        updateLogin: (state, payload) => (state.login = payload),
-        updateRegister: (state, payload) => (state.register = payload),
-        updateTokenIsAdmin: (state, payload) => (state.token_is_admin = payload),
-        updateLogout: (state, payload) => (state.logout = payload)
+        CHECK_ADMIN: ({commit, dispatch}) => {
+            axios.get('/api/admin/check')
+                .then(res => {
+                    commit("updateCheckAdmin", res.data)
+                    if (res.data === 1) {
+                        dispatch("ADMIN")
+                    }
+                    console.log(res.data, "vuex")
+                }).catch(error => {
+                console.log(error)
+            })
+        },
+        ADMIN: ({commit}) => {
+            axios.get('/api/admin')
+                .then(res => {
+                    commit("updateAdmin", res.data)
+                }).catch(error => {
+                console.log(error)
+            })
+        },
+        USER_INFO: ({commit}) => {
+            axios.get('/api/user/home')
+                .then(res => {
+                    commit("updateUserInfo", res.data)
+                }).catch(error => {
+                console.log(error)
+            })
+        },
+        CREATE_POST: async ({commit}, {user_id ,title, body}) => {
+            axios.post('/api/user/blog/create-post',   {user_id, title, body} )
+                .then(res => {
+                    commit("updateCreatePost", res.data)
+                    router.push({name: 'BlogPage'})
+                }).catch(error => {
+                console.log(error)
+            })
+        }
 
     },
     getters: {
         getLogin: (state) => state.login,
         getRegister: (state) => state.register,
         getLogout: (state) => state.logout,
-        getTokenIsAdmin: (state) => state.token_is_admin
+        getTokenIsAdmin: (state) => state.token_is_admin,
+        getCheckAdmin: (state) => state.check_admin,
+        getAdmin: (state) => state.admin,
+        getUserInfo: (state) => state.user_info,
+        getCreatePost: (state) => state.create_post
+
+    },
+    mutations: {
+        updateLogin: (state, payload) => (state.login = payload),
+        updateRegister: (state, payload) => (state.register = payload),
+        updateTokenIsAdmin: (state, payload) => (state.token_is_admin = payload),
+        updateLogout: (state, payload) => (state.logout = payload),
+        updateCheckAdmin: (state, payload) => (state.check_admin = payload),
+        updateAdmin: (state, payload) => (state.admin = payload),
+        updateUserInfo: (state, payload) => (state.user_info = payload),
+        updateCreatePost: (state, payload) => (state.create_post= payload)
+
     }
 }
 export default user;

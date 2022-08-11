@@ -10,7 +10,8 @@ const user = {
         check_admin: {},
         admin: {},
         user_info:{},
-        create_post:{}
+        create_post:{},
+        show_post:{}
     },
     actions: {
         LOGIN: async ({commit, dispatch}, {email, password}) => {
@@ -105,6 +106,14 @@ const user = {
                 }).catch(error => {
                 console.log(error)
             })
+        },
+        SHOW_POST: async ({commit}) => {
+            axios.get('/api/user/blog')
+                .then(res => {
+                    commit("updateShowPost", res.data)
+                }).catch(error => {
+                console.log(error)
+            })
         }
 
     },
@@ -116,7 +125,8 @@ const user = {
         getCheckAdmin: (state) => state.check_admin,
         getAdmin: (state) => state.admin,
         getUserInfo: (state) => state.user_info,
-        getCreatePost: (state) => state.create_post
+        getCreatePost: (state) => state.create_post,
+        getShowPost: (state) => state.show_post
 
     },
     mutations: {
@@ -127,7 +137,8 @@ const user = {
         updateCheckAdmin: (state, payload) => (state.check_admin = payload),
         updateAdmin: (state, payload) => (state.admin = payload),
         updateUserInfo: (state, payload) => (state.user_info = payload),
-        updateCreatePost: (state, payload) => (state.create_post= payload)
+        updateCreatePost: (state, payload) => (state.create_post= payload),
+        updateShowPost: (state, payload) => (state.show_post= payload)
 
     }
 }

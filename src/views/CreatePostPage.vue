@@ -4,22 +4,23 @@
       <!--    <img class="mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">-->
       <h1 class="h3 mb-3 fw-normal">POST CREATION</h1>
 
-      <div class="form-floating">
-        <input v-model="title" type="text" class="form-control" id="floatingInput" placeholder="Title">
-        <label for="floatingInput">Title</label>
+<!--      <div class="form-floating">-->
+<!--        <input v-model="title" type="text" class="form-control" id="floatingInput" placeholder="Title">-->
+<!--        <label for="floatingInput">Title</label>-->
+<!--      </div>-->
+
+
+      <div class="input-group mb-5" style="height: 25px; width: 500px">
+        <span class="input-group-text">Title</span>
+        <textarea v-model="title" class="form-control" aria-label="With textarea"></textarea>
       </div>
-      <div class="form-floating">
-        <input v-model="body" type="text" class="form-control" id="floatingInput" placeholder="Your text of post">
-        <label for="floatingInput">Your text of post</label>
+      <div class="input-group w-50 mt-4" style="height: 120px">
+        <span class="input-group-text">Text</span>
+        <textarea v-model="body" class="form-control" aria-label="With textarea"></textarea>
       </div>
 
-<!--      <div class="checkbox mb-3">-->
-<!--        <label>-->
-<!--          <input v-model="is_admin" type="checkbox" value="Is admin"> I'm admin-->
-<!--        </label>-->
-<!--      </div>-->
-      <button class="w-100 btn btn-lg btn-primary" type="submit">Done</button>
-<!--      <p class="mt-5 mb-3 text-muted">© 2017–2022</p>-->
+      <button class=" btn btn-lg btn-primary mt-4" style="height: 50px; width: 230px" type="submit">Done</button>
+      <p class="mt-5 mb-3 text-muted">by @{{this.getUserInfo.name}}</p>
     </form>
   </main>
 
@@ -38,6 +39,10 @@ export default {
     }
   },
 
+  mounted() {
+    this.USER_INFO()
+  },
+
   computed:{
     ...mapGetters(["getCreatePost", "getUserInfo"])
   },
@@ -47,7 +52,6 @@ export default {
     ...mapActions(["USER_INFO","CREATE_POST"]),
 
     onSubmit() {
-      this.USER_INFO()
       this.CREATE_POST({user_id: this.getUserInfo.id, body: this.body, title:this.title})
     }
   }

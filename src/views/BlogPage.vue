@@ -1,14 +1,13 @@
 <template>
-  <div class="row" >
-    <div class="col-3 mb-3" v-for="post in this.getShowPost.posts" :key="post.id">
-      <div class="card bg-light mb-3" style="width: 18rem;">
+
+    <div class="col-12 mb-3" v-for="post in this.getShowPost.posts" :key="post.id">
+      <div class="card bg-light mb-3" style="width: 75rem;">
         <div class="card-body">
-          <h5 class="card-title">{{post.title}}</h5>
-          <p class="card-text">{{post.body}}</p>
-          <a href="#" class="btn btn-primary">edit</a>
-          <a href="#" class="btn btn-danger">delete</a>
+          <h5 class="card-title ">{{post.title}}</h5>
+          <p class="card-text mt-5">{{post.body}}</p>
+          <a href="#" class="btn btn-outline-primary">edit</a>
+          <a href="#" class="btn btn-outline-danger mx-2">delete</a>
         </div>
-      </div>
     </div>
   </div>
 </template>
@@ -30,7 +29,8 @@ export default {
   },
 
   methods:{
-    ...mapActions(["SHOW_POST"])
+    ...mapActions(["SHOW_POST"]),
+
   }
 }
 

@@ -1,9 +1,17 @@
 <template>
-<h1>{{getUserInfo.name}}</h1>
-<h1>{{getUserInfo.email}}</h1>
-<h1 v-if="getUserInfo.is_admin===1">admin</h1>
-<h1 v-else>user</h1>
-
+    <div class="d-flex align-items-baseline">
+      <h4>Name: </h4>
+      <h4 class="text-muted ms-1">{{getUserInfo.name}}</h4>
+    </div>
+    <div class="d-flex align-items-center">
+      <h4>Email:</h4>
+      <h4 class="text-muted ms-1"> {{getUserInfo.email}}</h4>
+    </div>
+    <div class="d-flex align-items-center">
+      <h1>Role:</h1>
+      <small class="text-muted ms-1" v-if="getUserInfo.is_admin===1">admin</small>
+      <small class="text-muted ms-1" v-else> user</small>
+    </div>
 </template>
 
 <script>

@@ -10,16 +10,23 @@
 <!--      </div>-->
 
 
-      <div class="input-group mb-5" style="height: 25px; width: 500px">
+      <div class="input-group mb-3" style="height: 50px; width: 500px">
         <span class="input-group-text">Title</span>
-        <textarea v-model="title" class="form-control" aria-label="With textarea"></textarea>
+        <input v-model="title" class="form-control" aria-label="With textarea">
       </div>
-      <div class="input-group w-50 mt-4" style="height: 120px">
+      <div class="input-group w-50" style="height: 120px;">
         <span class="input-group-text">Text</span>
-        <textarea v-model="body" class="form-control" aria-label="With textarea"></textarea>
+        <textarea v-model="body" class="form-control" aria-label="With textarea" style="resize: none"></textarea>
       </div>
 
-      <button class=" btn btn-lg btn-primary mt-4" style="height: 50px; width: 230px" type="submit">Done</button>
+      <button
+          class="btn btn-lg btn-primary mt-4"
+          style="height: 50px; width: 230px"
+          type="submit"
+          :disabled="checkNull"
+      >
+        Done
+      </button>
       <p class="mt-5 mb-3 text-muted">by @{{this.getUserInfo.name}}</p>
     </form>
   </main>
@@ -31,21 +38,20 @@ import {mapActions, mapGetters} from "vuex";
 export default {
   name: "CreatePostPage",
 
-  data() {
-    return {
+  data:() =>  ({
       title: null,
       body: null,
       user_id: null,
-    }
-  },
+  }),
 
   mounted() {
     this.USER_INFO()
   },
 
   computed:{
-    ...mapGetters(["getCreatePost", "getUserInfo"])
+    ...mapGetters(["getCreatePost", "getUserInfo"]),
   },
+
 
 
   methods: {
@@ -53,8 +59,13 @@ export default {
 
     onSubmit() {
       this.CREATE_POST({user_id: this.getUserInfo.id, body: this.body, title:this.title})
-    }
+    },
+
+
   }
+
+
+
 }
 
 

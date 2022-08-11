@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CreatePostController;
 use App\Http\Controllers\GetController;
 use App\Http\Controllers\TokenController;
+use App\Http\Controllers\ShowPostsController;
 //use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Person\AdminController;
 use App\Models\User;
@@ -31,9 +32,8 @@ Route::group(['middleware'=>'auth:api'], function () {
     Route::get('/user/home', function (Request $request){
         return $request->user();
     });
-//    Route::get('/user/blog',)
-//    });
     Route::post('/user/blog/create-post', [CreatePostController::class, 'creating']);
+    Route::get('/user/blog', ShowPostsController::class);
 
 });
 

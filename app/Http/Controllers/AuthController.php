@@ -31,14 +31,7 @@ class AuthController extends Controller
     public function register(RegisterReq $request): \Illuminate\Http\JsonResponse
     {
 
-//        protected function validator(array $request)
-//    {
-//        return Validator::make($request, [
-//            'name' => ['required', 'string', 'max:255'],
-//            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-//            'password' => ['required', 'string', 'min:8', 'confirmed'],
-//        ]);
-//    }
+//
            $user = User::create([
                 'name' => $request->get('name'),
                 'email' => $request->get('email'),

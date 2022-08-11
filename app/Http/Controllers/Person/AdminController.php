@@ -14,4 +14,10 @@ class AdminController extends Controller
         $people = User::all();
         return $people;
     }
+
+
+    public function DeleteUser()
+    {
+
+    }
 }

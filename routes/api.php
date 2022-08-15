@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\AuthManager;
+use \App\Models\Post;
 
 
 /*
@@ -34,6 +35,17 @@ Route::group(['middleware'=>'auth:api'], function () {
     });
     Route::post('/user/blog/create-post', [CreatePostController::class, 'creating']);
     Route::get('/user/blog', ShowPostsController::class);
+    Route::delete('/user/blog/{post_id}', function ($post_id){
+        Post::where('id', $post_id)->delete();
+        return response()->json(["status"=>"success"], 200);
+    });
+    Route::delete('/admin/{user_id}', function ($user_id){
+//        log(User::where('id', $user_id)->get());
+//        log(Post::where('user_id', $user_id)->get());
+        User::where('id', $user_id)->delete();
+        Post::where('user_id', $user_id)->delete();
+        return response()->json(["status"=>"success"], 200);
+    });
 
 });
 

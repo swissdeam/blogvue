@@ -7,6 +7,8 @@
       <th scope="col">Name</th>
       <th scope="col">Email</th>
       <th scope="col">Role</th>
+      <th scope="col">Posts</th>
+      <th scope="col">Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -16,6 +18,12 @@
       <td>{{ person.email }}</td>
       <td v-if="person.is_admin===1">admin</td>
       <td v-else>user</td>
+      <td>
+        <button  href="" class="btn btn-success">User's Posts</button>
+      </td>
+      <td >
+        <button v-if="person.id !== getUserInfo.id" v-on:click="DELETE_USER({user_id: person.id, curr_id: getUserInfo.id})" class="btn btn-outline-danger">Delete user</button>
+      </td>
     </tr>
     </tbody>
   </table>
@@ -37,10 +45,10 @@ export default {
 
 
   computed: {
-    ...mapGetters(["getCheckAdmin", "getAdmin"]),
+    ...mapGetters(["getCheckAdmin", "getAdmin", "getUserInfo"]),
   },
   methods: {
-    ...mapActions(["CHECK_ADMIN"]),
+    ...mapActions(["CHECK_ADMIN", "DELETE_USER"]),
   }
 
 }

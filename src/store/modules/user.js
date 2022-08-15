@@ -11,7 +11,8 @@ const user = {
         admin: {},
         user_info:{},
         create_post:{},
-        show_post:{}
+        show_post:{},
+        delete_post:{}
     },
     actions: {
         LOGIN: async ({commit, dispatch}, {email, password}) => {
@@ -45,6 +46,7 @@ const user = {
                             } else {
                                 res.data.is_admin = 0;
                             }
+                            localStorage.setItem('name', res.data.name)
                             localStorage.setItem('is admin', res.data.is_admin)
                             dispatch("TOKEN_IS_ADMIN")
                             commit("updateRegister", res.data)
@@ -108,13 +110,38 @@ const user = {
             })
         },
         SHOW_POST: async ({commit}) => {
+            console.log(123)
             axios.get('/api/user/blog')
                 .then(res => {
                     commit("updateShowPost", res.data)
                 }).catch(error => {
                 console.log(error)
             })
-        }
+        },
+        DELETE_POST: async ({commit, dispatch}, {post_id}) => {
+            axios.delete(`/api/user/blog/${post_id}`)
+                .then(res => {
+                    commit("updateDeletePost", res.data)
+                    dispatch("SHOW_POST")
+                }).catch(error => {
+                console.log(error)
+            })
+        },
+        DELETE_USER: async ({commit, dispatch}, {user_id, curr_id}) => {
+            axios.delete(`/api/admin/${user_id}`, {curr_id})
+                .then(res => {
+                    commit("updateDeleteUser", res.data)
+                    if (user_id === curr_id){
+                        dispatch("LOGOUT")
+                    }
+                    dispatch("ADMIN")
+                }).catch(error => {
+                console.log(error)
+            })
+        },
+
+
+
 
     },
     getters: {
@@ -126,7 +153,9 @@ const user = {
         getAdmin: (state) => state.admin,
         getUserInfo: (state) => state.user_info,
         getCreatePost: (state) => state.create_post,
-        getShowPost: (state) => state.show_post
+        getShowPost: (state) => state.show_post,
+        getDeletePost: (state)=>state.delete_post,
+        getDeleteUser: (state)=>state.delete_post
 
     },
     mutations: {
@@ -138,7 +167,9 @@ const user = {
         updateAdmin: (state, payload) => (state.admin = payload),
         updateUserInfo: (state, payload) => (state.user_info = payload),
         updateCreatePost: (state, payload) => (state.create_post= payload),
-        updateShowPost: (state, payload) => (state.show_post= payload)
+        updateShowPost: (state, payload) => (state.show_post= payload),
+        updateDeletePost: (state, payload) => (state.delete_post= payload),
+        updateDeleteUser: (state, payload) => (state.delete_post= payload)
 
     }
 }

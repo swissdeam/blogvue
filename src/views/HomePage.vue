@@ -8,9 +8,9 @@
       <h4 class="text-muted ms-1"> {{getUserInfo.email}}</h4>
     </div>
     <div class="d-flex align-items-center">
-      <h1>Role:</h1>
-      <small class="text-muted ms-1" v-if="getUserInfo.is_admin===1">admin</small>
-      <small class="text-muted ms-1" v-else> user</small>
+      <h4>Role:</h4>
+      <h4 class="text-muted ms-1" v-if="getUserInfo.is_admin===1">admin</h4>
+      <h4 class="text-muted ms-1" v-else> user</h4>
     </div>
 </template>
 

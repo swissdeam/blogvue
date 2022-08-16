@@ -46,38 +46,14 @@ export default {
   data() {
     return {
       links: [
-        // {
-        //   title: "get",
-        //   href: "/api/get"
-        // },
         {
-          title: "Create Post",
+          title: "CREATE POST",
           href: "/user/blog/create-post"
         },
         {
-          title: "all posts",
+          title: "MY POSTS",
           href: "/user/blog"
         },
-        // {
-        //   title: "регистрация",
-        //   href: "/user/registration"
-        // },
-        // {
-        //   title: "Профиль",
-        //   href: "/user/home"
-        // },
-        // {
-        //   title: "блоr",
-        //   href: "/blog"
-        // },
-        // {
-        //   title: "Логин",
-        //   href: "/user/login"
-        // },
-        // {
-        //   title: "админка",
-        //   href: "/admin"
-        // },
       ],
       token: null,
       is_admin:null,

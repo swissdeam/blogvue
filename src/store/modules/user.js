@@ -1,6 +1,7 @@
 import axios from "@/utils/axios";
 import router from "@/router";
 
+
 const user = {
     state: {
         login: {},
@@ -14,7 +15,9 @@ const user = {
         show_post:{},
         admin_show_post:{},
         search_show_post:{},
-        delete_post:{}
+        delete_post:{},
+        delete_user:{},
+        admin_delete_post:{}
     },
     actions: {
         LOGIN: async ({commit, dispatch}, {email, password}) => {
@@ -129,6 +132,17 @@ const user = {
                 console.log(error)
             })
         },
+
+        ADMIN_DELETE_POST: async ({commit, dispatch}, {post_id, user_id}) => {
+            axios.delete(`/api/admin/${user_id}/posts/${post_id}`)
+                .then(res => {
+                    commit("updateAdminDeletePost", res.data)
+                    //router.push({path:`/admin/${user_id}/posts`})
+                    dispatch(`ADMIN_SHOW_POST`, user_id)
+                }).catch(error => {
+                console.log(error)
+            })
+        },
         DELETE_USER: async ({commit, dispatch}, {user_id}) => {
             axios.delete(`/api/admin/${user_id}`)
                 .then(res => {
@@ -164,7 +178,6 @@ const user = {
 
 
 
-
     },
     getters: {
         getLogin: (state) => state.login,
@@ -179,7 +192,8 @@ const user = {
         getAdminShowPost: (state) => state.admin_show_post,
         getSearchShowPost: (state) => state.search_show_post,
         getDeletePost: (state)=>state.delete_post,
-        getDeleteUser: (state)=>state.delete_post
+        getDeleteUser: (state)=>state.delete_user,
+        getAdminDeletePost: (state)=>state.admin_delete_post
 
     },
     mutations: {
@@ -195,7 +209,8 @@ const user = {
         updateAdminShowPost: (state, payload) => (state.admin_show_post= payload),
         updateSearchShowPost: (state, payload) => (state.search_show_post= payload),
         updateDeletePost: (state, payload) => (state.delete_post= payload),
-        updateDeleteUser: (state, payload) => (state.delete_post= payload)
+        updateAdminDeletePost: (state, payload) => (state.delete_post= payload),
+        updateDeleteUser: (state, payload) => (state.delete_user= payload)
 
     }
 }

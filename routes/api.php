@@ -41,6 +41,10 @@ Route::group(['middleware'=>'auth:api'], function () {
         Post::where('id', $post_id)->delete();
         return response()->json(["status"=>"success"], 200);
     });
+    Route::delete('/admin/{user_id}/posts/{post_id}', function ($user_id, $post_id){
+        Post::where('id', $post_id)->delete();
+        return response()->json(["status"=>"success"], 200);
+    });
     Route::delete('/admin/{user_id}', function ($user_id){
         User::where('id', $user_id)->delete();
         Post::where('user_id', $user_id)->delete();

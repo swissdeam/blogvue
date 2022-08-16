@@ -12,6 +12,8 @@ const user = {
         user_info:{},
         create_post:{},
         show_post:{},
+        admin_show_post:{},
+        search_show_post:{},
         delete_post:{}
     },
     actions: {
@@ -127,18 +129,38 @@ const user = {
                 console.log(error)
             })
         },
-        DELETE_USER: async ({commit, dispatch}, {user_id, curr_id}) => {
-            axios.delete(`/api/admin/${user_id}`, {curr_id})
+        DELETE_USER: async ({commit, dispatch}, {user_id}) => {
+            axios.delete(`/api/admin/${user_id}`)
                 .then(res => {
                     commit("updateDeleteUser", res.data)
-                    if (user_id === curr_id){
-                        dispatch("LOGOUT")
-                    }
                     dispatch("ADMIN")
                 }).catch(error => {
                 console.log(error)
             })
         },
+
+        ADMIN_SHOW_POST: async ({commit}, {user_id}) => {
+            console.log(123)
+            axios.get(`/api/admin/${user_id}/posts`)
+                .then(res => {
+                    commit("updateAdminShowPost", res.data)
+                    console.log("getAdminShowPost")
+                    router.push({path: `/admin/${user_id}/posts`})
+                }).catch(error => {
+                console.log(error)
+            })
+        },
+        SEARCH_SHOW_POST: async ({commit}, {email}) => {
+            console.log(123)
+            axios.get(`/api/user/search/${email}/posts`)
+                .then(res => {
+                    commit("updateSearchShowPost", res.data)
+                    router.push({path: `/search/${email}/posts`})
+                }).catch(error => {
+                console.log(error)
+            })
+        },
+
 
 
 
@@ -154,6 +176,8 @@ const user = {
         getUserInfo: (state) => state.user_info,
         getCreatePost: (state) => state.create_post,
         getShowPost: (state) => state.show_post,
+        getAdminShowPost: (state) => state.admin_show_post,
+        getSearchShowPost: (state) => state.search_show_post,
         getDeletePost: (state)=>state.delete_post,
         getDeleteUser: (state)=>state.delete_post
 
@@ -168,6 +192,8 @@ const user = {
         updateUserInfo: (state, payload) => (state.user_info = payload),
         updateCreatePost: (state, payload) => (state.create_post= payload),
         updateShowPost: (state, payload) => (state.show_post= payload),
+        updateAdminShowPost: (state, payload) => (state.admin_show_post= payload),
+        updateSearchShowPost: (state, payload) => (state.search_show_post= payload),
         updateDeletePost: (state, payload) => (state.delete_post= payload),
         updateDeleteUser: (state, payload) => (state.delete_post= payload)
 

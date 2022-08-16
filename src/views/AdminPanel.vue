@@ -19,10 +19,10 @@
       <td v-if="person.is_admin===1">admin</td>
       <td v-else>user</td>
       <td>
-        <button  href="" class="btn btn-success">User's Posts</button>
+        <button v-if="person.id !== getUserInfo.id" v-on:click="ADMIN_SHOW_POST({user_id: person.id})" class="btn btn-success">User's Posts</button>
       </td>
       <td >
-        <button v-if="person.id !== getUserInfo.id" v-on:click="DELETE_USER({user_id: person.id, curr_id: getUserInfo.id})" class="btn btn-outline-danger">Delete user</button>
+        <button v-if="person.id !== getUserInfo.id" v-on:click="DELETE_USER({user_id: person.id})" class="btn btn-outline-danger">Delete user</button>
       </td>
     </tr>
     </tbody>
@@ -40,15 +40,16 @@ export default {
 
   mounted() {
     console.log("обновился")
+    this.USER_INFO()
     this.CHECK_ADMIN()
   },
 
 
   computed: {
-    ...mapGetters(["getCheckAdmin", "getAdmin", "getUserInfo"]),
+    ...mapGetters(["getCheckAdmin", "getAdmin", "getUserInfo", "getAdminShowPost"]),
   },
   methods: {
-    ...mapActions(["CHECK_ADMIN", "DELETE_USER"]),
+    ...mapActions(["CHECK_ADMIN", "DELETE_USER", "USER_INFO", "ADMIN_SHOW_POST"]),
   }
 
 }

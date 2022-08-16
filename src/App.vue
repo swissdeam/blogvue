@@ -1,5 +1,5 @@
 <template>
-  <HeaderComp/>
+  <HeaderComp />
     <div class="wrapper w-100 m-auto">
 <!--        <router-link v-if="token" :to="{name: 'GetPage'}">Get</router-link>-->
 <!--        <router-link v-if="!token" :to="{name: 'LoginPage'}">Login</router-link>-->

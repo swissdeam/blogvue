@@ -14,6 +14,12 @@
           <router-link :to=link.href class="nav-link px-2 link-secondary">{{ link.title }}</router-link>
 <!--          <a :href="link.href" class="nav-link px-2 link-secondary">{{ link.title }}</a>-->
         </li>
+        <li class="ms-5">
+          <div class="input-group">
+            <input v-model="search_email" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <button v-on:click="SEARCH_SHOW_POST({email: this.search_email})" type="button" class="btn btn-outline-primary">search</button>
+          </div>
+        </li>
       </ul>
 
       <div class="col-md-4 text-end">
@@ -23,6 +29,9 @@
         <router-link v-if="getTokenIsAdmin.token" @click.prevent="logout" to=# class="btn btn-outline-primary me-2">Logout</router-link>
         <router-link v-if="getTokenIsAdmin.is_admin === '1'" to='/adminpanel' class="btn btn-outline-primary me-2">Admin Panel</router-link>
       </div>
+
+
+
   </header>
 </template>
 
@@ -72,6 +81,7 @@ export default {
       ],
       token: null,
       is_admin:null,
+      search_email:null,
     }
   },
 
@@ -91,7 +101,7 @@ export default {
             console.log(res)
           })
     },
-    ...mapActions(["LOGOUT", "TOKEN_IS_ADMIN"]),
+    ...mapActions(["LOGOUT", "TOKEN_IS_ADMIN", "SEARCH_SHOW_POST"]),
 
     logout(){
       this.LOGOUT()

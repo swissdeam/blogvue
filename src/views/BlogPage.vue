@@ -1,4 +1,5 @@
 <template>
+  <div v-if="this.getShowPost.posts.length !== 0">
     <div class="col-12 mb-3" v-for="post in reversedPosts()" :key="post.id">
       <div class="card bg-light mb-3" style="width: 75rem;">
         <div class="card-body">
@@ -8,6 +9,13 @@
           <button v-on:click="DELETE_POST({post_id: post.id})" class="btn btn-outline-danger mx-2">delete</button>
         </div>
     </div>
+  </div>
+  </div>
+  <div v-else>
+    <h1 >
+      you didnt post anything yet
+    </h1>
+    <router-link to="/user/blog/create-post" class="btn btn-outline-primary">wanna create a post?</router-link>
   </div>
 </template>
 

@@ -7,6 +7,8 @@ import AdminPanel from "../views/AdminPanel";
 import RegistrationPage from "../views/RegistrationPage";
 import Get from "../views/GetPage";
 import BlogPage from "../views/BlogPage";
+import UsersPosts from "@/views/UsersPosts";
+import SearchPosts from "@/views/SearchPosts";
 
 
 const routes=[
@@ -45,6 +47,16 @@ const routes=[
     path: '/adminpanel',
     name: 'AdminPanel',
     component: AdminPanel
+  },
+  {
+    path: '/admin/:user_id/posts',
+    name: 'UsersPosts',
+    component: UsersPosts
+  },
+  {
+    path: '/search/:email/posts',
+    name: 'SearchPosts',
+    component: SearchPosts
   },
   {
     path: '/admin/check'

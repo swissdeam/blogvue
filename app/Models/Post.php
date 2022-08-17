@@ -15,4 +15,9 @@ class Post extends Model
         'body'
     ];
 
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class) -> orderBy('created_at');
+    }
+
 }

@@ -35,6 +35,8 @@ Route::group(['middleware'=>'auth:api'], function () {
     });
     Route::post('/user/blog/create-post', [CreatePostController::class, 'creating']);
     Route::get('/user/blog', ShowPostsController::class);
+    Route::get('/feed', [ShowPostsController::class, 'feedPosts']);
+    Route::get('/feed/{user_id}/post-owner', [ShowPostsController::class, 'feedUsers']);
     Route::get('/admin/{user_id}/posts', [ShowPostsController::class, 'showForAdmin']);
     Route::get('/user/search/{email}/posts', [ShowPostsController::class, 'searchUsers']);
     Route::delete('/user/blog/{post_id}', function ($post_id){

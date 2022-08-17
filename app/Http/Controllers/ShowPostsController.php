@@ -27,4 +27,11 @@ class ShowPostsController extends Controller
         $posts = Post::where('user_id', $search_user->id)->get();
         return response()->json(["posts"=>$posts, "user"=>$search_user_name], 200);
     }
+
+    public function feedPosts() : \Illuminate\Http\JsonResponse
+    {
+        $posts = Post::with('user')->get();
+        return response()->json(["posts"=>$posts], 200);
+    }
+
 }

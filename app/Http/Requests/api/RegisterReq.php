@@ -50,7 +50,11 @@ class RegisterReq extends FormRequest
         return [
             'name'=>'required',
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => [
+                'required',
+                'min:6',
+                'confirmed'
+            ],
             'password_confirmation' => 'required_with:password|same:password',
             'is_admin'=>'required'
         ];

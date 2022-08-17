@@ -6,6 +6,7 @@
         <div class="card-body">
           <h5 class="card-title ">{{post.title}}</h5>
           <p class="card-text mt-5">{{post.body}}</p>
+          <small>at {{formatDate(post.created_at)}}</small>
         </div>
     </div>
   </div>
@@ -24,6 +25,14 @@ import {mapActions, mapGetters} from "vuex";
 
 export default {
 
+data(){
+  return{
+    formatDate(date) {
+      return new Date(date).toLocaleString();
+    }
+
+  }
+},
 
   beforeMount() {
     this.SEARCH_SHOW_POST({email: this.$route.params.email})

@@ -54,6 +54,10 @@ export default {
           title: "MY POSTS",
           href: "/user/blog"
         },
+        {
+          title: "Feed",
+          href: "/feed"
+        },
       ],
       token: null,
       is_admin:null,

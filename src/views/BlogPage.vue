@@ -9,9 +9,10 @@
           <p class="card-text mt-5">
             {{post.body}}
           </p>
+          <small class="" >at {{formatDate(post.created_at)}}</small>
           <button class="btn btn-outline-primary">
             edit
-          </button>
+          </button >
           <button v-on:click="DELETE_POST({post_id: post.id})" class="btn btn-outline-danger mx-2">delete</button>
         </div>
     </div>
@@ -32,6 +33,14 @@ import {mapActions, mapGetters} from "vuex";
 
 export default {
 
+  data(){
+    return{
+      formatDate(date) {
+        return new Date(date).toLocaleString();
+      }
+
+    }
+  },
 
   name: "BlogPage",
 

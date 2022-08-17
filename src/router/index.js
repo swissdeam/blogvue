@@ -9,6 +9,7 @@ import Get from "../views/GetPage";
 import BlogPage from "../views/BlogPage";
 import UsersPosts from "@/views/UsersPosts";
 import SearchPosts from "@/views/SearchPosts";
+import FeedPosts from "@/views/FeedPosts";
 
 
 const routes=[
@@ -57,6 +58,11 @@ const routes=[
     path: '/search/:email/posts',
     name: 'SearchPosts',
     component: SearchPosts
+  },
+  {
+    path: '/feed',
+    name: 'FeedPosts',
+    component: FeedPosts
   },
   {
     path: '/admin/check'

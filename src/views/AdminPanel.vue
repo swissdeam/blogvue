@@ -1,5 +1,5 @@
 <template>
-  <h1>список пользователей </h1>
+  <h2>Users List</h2>
   <table class="table">
     <thead class="thead-dark">
     <tr>

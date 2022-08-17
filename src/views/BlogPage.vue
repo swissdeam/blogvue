@@ -9,19 +9,20 @@
           <p class="card-text mt-5">
             {{post.body}}
           </p>
-          <button class="btn btn-outline-primary">
-            edit
-          </button>
+          <small class="" >at {{formatDate(post.created_at)}}</small>
+<!--          <button class="btn btn-outline-primary">-->
+<!--            edit-->
+<!--          </button >-->
           <button v-on:click="DELETE_POST({post_id: post.id})" class="btn btn-outline-danger mx-2">delete</button>
         </div>
     </div>
   </div>
   </div>
-  <div v-else>
-    <div class="h3 mb-3 fw-normal alert alert-info w-50" role="alert">
-      YOU DIDNT POST ANYTHING YET
+  <div class="text-center" v-else>
+    <div class="h3 mb-3 fw-normal alert w-100" role="alert">
+      YOU DID NOT POST ANYTHING YET
     </div>
-    <router-link to="/user/blog/create-post" class="btn btn-outline-primary">wanna create a post?</router-link>
+    <router-link to="/user/blog/create-post" class="btn pink-btn">wanna create a post?</router-link>
   </div>
 </template>
 
@@ -32,6 +33,14 @@ import {mapActions, mapGetters} from "vuex";
 
 export default {
 
+  data(){
+    return{
+      formatDate(date) {
+        return new Date(date).toLocaleString();
+      }
+
+    }
+  },
 
   name: "BlogPage",
 

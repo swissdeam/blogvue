@@ -5,19 +5,19 @@
       <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
 
       <div class="form-floating">
-        <input v-model="name" type="text" class="form-control my-2" id="floatingInput" placeholder="Your Name">
+        <input v-model="name" type="text" class="border-inpt form-control my-2" id="floatingInput" placeholder="Your Name">
         <label for="floatingInput">Your name</label>
       </div>
       <div class="form-floating">
-        <input v-model="email" type="email" class="form-control my-2" id="floatingInput" placeholder="name@example.com">
+        <input v-model="email" type="email" class="border-inpt form-control my-2" id="floatingInput" placeholder="name@example.com">
         <label for="floatingInput">Email address</label>
       </div>
       <div class="form-floating">
-        <input v-model="password" type="password" class="form-control my-2" id="floatingInput" placeholder="Password">
+        <input v-model="password" type="password" class="border-inpt form-control my-2" id="floatingInput" placeholder="Password">
         <label for="floatingInput">Password</label>
       </div>
       <div class="form-floating">
-        <input v-model="password_confirmation" type="password" class="form-control my-2" id="floatingPassword" placeholder="Password Confirmation">
+        <input v-model="password_confirmation" type="password" class="border-inpt form-control my-2" id="floatingPassword" placeholder="Password Confirmation">
         <label for="floatingPassword">Password Confirmation</label>
       </div>
 
@@ -26,7 +26,7 @@
               <input v-model="is_admin" type="checkbox" value="Is admin"> I'm admin
             </label>
           </div>
-      <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+      <button class="w-100 btn btn-lg pink-btn" type="submit">Sign up</button>
       <p class="mt-1 mb-3 text-muted">©swissdeam</p>
     </form>
   </main>

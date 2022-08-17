@@ -17,7 +17,10 @@ const user = {
         search_show_post:{},
         delete_post:{},
         delete_user:{},
-        admin_delete_post:{}
+        admin_delete_post:{},
+        feed_show_post:{},
+
+
     },
     actions: {
         LOGIN: async ({commit, dispatch}, {email, password}) => {
@@ -137,8 +140,7 @@ const user = {
             axios.delete(`/api/admin/${user_id}/posts/${post_id}`)
                 .then(res => {
                     commit("updateAdminDeletePost", res.data)
-                    //router.push({path:`/admin/${user_id}/posts`})
-                    dispatch(`ADMIN_SHOW_POST`, user_id)
+                    dispatch(`ADMIN_SHOW_POST`, {user_id})
                 }).catch(error => {
                 console.log(error)
             })
@@ -158,7 +160,7 @@ const user = {
             axios.get(`/api/admin/${user_id}/posts`)
                 .then(res => {
                     commit("updateAdminShowPost", res.data)
-                    console.log("getAdminShowPost")
+                    console.log(res,"getAdminShowPost")
                     router.push({path: `/admin/${user_id}/posts`})
                 }).catch(error => {
                 console.log(error)
@@ -174,6 +176,18 @@ const user = {
                 console.log(error)
             })
         },
+        FEED_SHOW_POST: async ({commit, dispatch}) => {
+            console.log(123)
+            axios.get(`/api/feed`)
+                .then(res => {
+                    commit("updateFeedPost", res.data)
+
+                    dispatch(`FEED_POST_OWNER`)
+                }).catch(error => {
+                console.log(error)
+            })
+        },
+
 
 
 
@@ -193,7 +207,8 @@ const user = {
         getSearchShowPost: (state) => state.search_show_post,
         getDeletePost: (state)=>state.delete_post,
         getDeleteUser: (state)=>state.delete_user,
-        getAdminDeletePost: (state)=>state.admin_delete_post
+        getAdminDeletePost: (state)=>state.admin_delete_post,
+        getFeedPost: (state)=>state.feed_show_post,
 
     },
     mutations: {
@@ -210,7 +225,9 @@ const user = {
         updateSearchShowPost: (state, payload) => (state.search_show_post= payload),
         updateDeletePost: (state, payload) => (state.delete_post= payload),
         updateAdminDeletePost: (state, payload) => (state.delete_post= payload),
-        updateDeleteUser: (state, payload) => (state.delete_user= payload)
+        updateDeleteUser: (state, payload) => (state.delete_user= payload),
+        updateFeedPost: (state, payload) => (state.feed_show_post= payload),
+
 
     }
 }

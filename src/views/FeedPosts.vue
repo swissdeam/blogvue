@@ -16,10 +16,11 @@
   </div>
   </div>
 
-  <div v-else>
-    <div class="h3 mb-3 fw-normal alert alert-info w-50" role="alert">
+  <div v-else class="text-center">
+    <div class="h3 mb-3 fw-normal alert w-100" role="alert">
       No updates
     </div>
+    <router-link to="/user/blog/create-post" class="btn pink-btn">wanna create a post?</router-link>
   </div>
 
 </template>

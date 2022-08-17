@@ -11,9 +11,9 @@
     </div>
   </div>
   </div>
-  <div v-else>
-    <div class="h3 mb-3 fw-normal alert alert-info w-50" role="alert">
-      USER DIDNT POST ANYTHING YET
+  <div v-else class="text-center">
+    <div class="h3 mb-3 fw-normal alert w-100" role="alert">
+      {{this.getSearchShowPost.user.name}} DID NOT POST ANYTHING YET
     </div>
   </div>
 </template>

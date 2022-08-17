@@ -5,16 +5,16 @@
         <div class="card-body">
           <h5 class="card-title ">{{post.title}}</h5>
           <p class="card-text mt-5">{{post.body}}</p>
-          <button  href="" class="btn btn-outline-primary">edit</button>
+<!--          <button  href="" class="btn btn-outline-primary">edit</button>-->
           <button v-on:click="this.ADMIN_DELETE_POST({user_id:this.$route.params.user_id, post_id: post.id})" class="btn btn-outline-danger mx-2">delete</button>
         </div>
     </div>
   </div>
   </div>
 
-  <div v-else>
-    <div class="h3 mb-3 fw-normal alert alert-info w-50" role="alert">
-      USER DIDNT POST ANYTHING YET
+  <div v-else class="text-center">
+    <div class="h3 mb-3 fw-normal alert w-100" role="alert">
+      USER DID NOT POST ANYTHING YET
     </div>
   </div>
 

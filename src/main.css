@@ -1,0 +1,15 @@
+body {
+background: #d5d5d5
+}
+.pink-btn {
+    background-color: #ef9a9a;
+    color: black;
+}
+table {
+    background: #f3f3f3;
+    border-radius: 10px;
+}
+.border-inpt {
+    border: 1px solid #8a8a8a;
+    border-radius: 5px;
+}

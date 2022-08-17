@@ -1,4 +1,4 @@
-<template>
+<template >
   <HeaderComp />
     <div class="wrapper w-100 m-auto">
 <!--        <router-link v-if="token" :to="{name: 'GetPage'}">Get</router-link>-->
@@ -74,6 +74,6 @@ export default {
 
 </script>
 
-<style scoped>
+<style >
 
 </style>

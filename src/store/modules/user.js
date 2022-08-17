@@ -160,7 +160,7 @@ const user = {
             axios.get(`/api/admin/${user_id}/posts`)
                 .then(res => {
                     commit("updateAdminShowPost", res.data)
-                    console.log("getAdminShowPost")
+                    console.log(res,"getAdminShowPost")
                     router.push({path: `/admin/${user_id}/posts`})
                 }).catch(error => {
                 console.log(error)

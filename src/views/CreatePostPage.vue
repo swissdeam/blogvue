@@ -10,18 +10,18 @@
 <!--      </div>-->
 
 
-      <div class="input-group mb-3" style="height: 50px; width: 500px">
+      <div class="border-inpt input-group mb-3" style="height: 50px; width: 500px">
         <span class="input-group-text">Title</span>
         <input v-model="title" class="form-control" aria-label="With textarea">
       </div>
-      <div class="input-group w-50" style="height: 120px;">
+      <div class="border-inpt input-group w-50" style="height: 120px;">
         <span class="input-group-text">Text</span>
         <textarea v-model="body" class="form-control" aria-label="With textarea" style="resize: none"></textarea>
       </div>
 
       <button
-          class="btn btn-lg btn-primary mt-4"
-          style="height: 50px; width: 230px"
+          class="pink-btn btn btn-lg mt-4"
+          style="background:rgb(239, 154, 154);height: 50px; width: 230px"
           type="submit"
           :disabled="checkNull"
       >
@@ -73,6 +73,7 @@ export default {
 
 </script>
 
-<style scoped>
+<style>
+
 
 </style>

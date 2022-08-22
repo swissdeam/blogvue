@@ -8,7 +8,6 @@ const user = {
         register: {},
         logout: {},
         token_is_admin: {},
-        check_admin: {},
         admin: {},
         user_info:{},
         create_post:{},
@@ -75,18 +74,18 @@ const user = {
                 })
 
         },
-        CHECK_ADMIN: ({commit, dispatch}) => {
-            axios.get('/api/admin/check')
-                .then(res => {
-                    commit("updateCheckAdmin", res.data)
-                    if (res.data === 1) {
-                        dispatch("ADMIN")
-                    }
-                    console.log(res.data, "vuex")
-                }).catch(error => {
-                console.log(error)
-            })
-        },
+        // CHECK_ADMIN: ({commit, dispatch}) => {
+        //     axios.get('/api/admin/check')
+        //         .then(res => {
+        //             commit("updateCheckAdmin", res.data)
+        //             if (res.data === 1) {
+        //                 dispatch("ADMIN")
+        //             }
+        //             console.log(res.data, "vuex")
+        //         }).catch(error => {
+        //         console.log(error)
+        //     })
+        // },
         ADMIN: ({commit}) => {
             axios.get('/api/admin')
                 .then(res => {
@@ -193,7 +192,6 @@ const user = {
         getRegister: (state) => state.register,
         getLogout: (state) => state.logout,
         getTokenIsAdmin: (state) => state.token_is_admin,
-        getCheckAdmin: (state) => state.check_admin,
         getAdmin: (state) => state.admin,
         getUserInfo: (state) => state.user_info,
         getCreatePost: (state) => state.create_post,
@@ -211,7 +209,6 @@ const user = {
         updateRegister: (state, payload) => (state.register = payload),
         updateTokenIsAdmin: (state, payload) => (state.token_is_admin = payload),
         updateLogout: (state, payload) => (state.logout = payload),
-        updateCheckAdmin: (state, payload) => (state.check_admin = payload),
         updateAdmin: (state, payload) => (state.admin = payload),
         updateUserInfo: (state, payload) => (state.user_info = payload),
         updateCreatePost: (state, payload) => (state.create_post= payload),

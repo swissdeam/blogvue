@@ -41,15 +41,15 @@ export default {
   mounted() {
     console.log("обновился")
     this.USER_INFO()
-    this.CHECK_ADMIN()
+    this.ADMIN()
   },
 
 
   computed: {
-    ...mapGetters(["getCheckAdmin", "getAdmin", "getUserInfo", "getAdminShowPost"]),
+    ...mapGetters(["getAdmin", "getUserInfo", "getAdminShowPost"]),
   },
   methods: {
-    ...mapActions(["CHECK_ADMIN", "DELETE_USER", "USER_INFO", "ADMIN_SHOW_POST"]),
+    ...mapActions(["ADMIN","DELETE_USER", "USER_INFO", "ADMIN_SHOW_POST"]),
   }
 
 }

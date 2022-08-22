@@ -48,11 +48,11 @@ export default {
       links: [
         {
           title: "CREATE POST",
-          href: "/user/blog/create-post"
+          href: "/posts/create"
         },
         {
           title: "MY POSTS",
-          href: "/user/blog"
+          href: "/posts"
         },
         {
           title: "FEED",

@@ -41,7 +41,7 @@ data(){
   name: "SearchPosts",
 
   computed:{
-    ...mapGetters(["getUserInfo", "getSearchShowPost"]),
+    ...mapGetters([ "getSearchShowPost"]),
 
   },
 

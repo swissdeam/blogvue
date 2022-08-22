@@ -1,6 +1,6 @@
 <template>
   <main class="form-signin w-100 m-auto">
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent="onSubmit" >
       <!--    <img class="mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">-->
       <h1 class="h3 mb-3 fw-normal">POST CREATION</h1>
 
@@ -27,7 +27,7 @@
       >
         Done
       </button>
-      <p class="mt-5 mb-3 text-muted">by @{{this.getUserInfo.name}}</p>
+      <p class="mt-5 mb-3 text-muted">by @{{this.getUserInfo.user.name}}</p>
     </form>
   </main>
 
@@ -44,7 +44,7 @@ export default {
       user_id: null,
   }),
 
-  mounted() {
+  beforeMount() {
     this.USER_INFO()
   },
 
@@ -58,7 +58,7 @@ export default {
     ...mapActions(["USER_INFO","CREATE_POST"]),
 
     onSubmit() {
-      this.CREATE_POST({user_id: this.getUserInfo.id, body: this.body, title:this.title})
+      this.CREATE_POST({user_id: this.getUserInfo.user.id, body: this.body, title:this.title})
     },
 
 

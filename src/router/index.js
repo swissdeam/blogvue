@@ -19,12 +19,12 @@ const routes=[
     component: Get
   },
   {
-    path: '/user/blog/create-post',
+    path: '/posts/create',
     name: 'CreatePostPage',
     component: CreatePostPage
   },
   {
-    path: '/user/blog',
+    path: '/posts',
     name: 'BlogPage',
     component: BlogPage
   },

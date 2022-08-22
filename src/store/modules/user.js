@@ -103,7 +103,7 @@ const user = {
             })
         },
         CREATE_POST: async ({commit}, {user_id ,title, body}) => {
-            axios.post('/api/user/blog/create-post',   {user_id, title, body} )
+            axios.post('/api/posts/create',   {user_id, title, body} )
                 .then(res => {
                     commit("updateCreatePost", res.data)
                     router.push({name: 'BlogPage'})
@@ -113,7 +113,7 @@ const user = {
         },
         SHOW_POST: async ({commit}) => {
             console.log(123)
-            axios.get('/api/user/blog')
+            axios.get('/api/posts')
                 .then(res => {
                     commit("updateShowPost", res.data)
                 }).catch(error => {

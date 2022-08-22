@@ -15,11 +15,7 @@ class ShowPostsController extends Controller
         $posts = Post::where('user_id', $user_id)->get();
         return response()->json(["posts"=>$posts], 200);
     }
-    public function showForAdmin($user_id) : \Illuminate\Http\JsonResponse
-    {
-        $posts = Post::where('user_id', $user_id)->get();
-        return response()->json(["posts"=>$posts], 200);
-    }
+
     public function searchUsers($email) : \Illuminate\Http\JsonResponse
     {
         $search_user = User::where('email', $email)->first('id');

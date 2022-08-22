@@ -1,12 +1,5 @@
 <?php
 //
-use App\Http\Controllers\MainController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GetController;
-use App\Http\Controllers\TokenController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Person\AdminController;
-use Illuminate\Http\Request;
 
 
 

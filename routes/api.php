@@ -44,11 +44,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/admin/{user_id}/posts', [AdminController::class, 'showPosts']);
         Route::get('/admin', AdminController::class);
     });
-    Route::post('/logout', [AuthController::Class, 'logout']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-Route::post('/user/login', [AuthController::Class, 'login']);
-Route::post('/user/register', [AuthController::Class, 'register']);
+Route::post('/user/login', [AuthController::class, 'login']);
+Route::post('/user/register', [AuthController::class, 'register']);
 
 
 

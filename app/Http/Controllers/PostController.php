@@ -13,10 +13,11 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::all();
-        return response($posts);
+        $user_id = $request->user()->id;
+        $posts = Post::where('user_id', $user_id)->get();
+        return response()->json(["posts"=>$posts], 200);
     }
 
     /**
@@ -24,8 +25,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+       
 
     }
 
@@ -35,7 +37,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request):\Illuminate\Http\JsonResponse
+    public function store(Request $request)
     {
         $post  = Post::create([
             'user_id'=>$request->get('user_id'),

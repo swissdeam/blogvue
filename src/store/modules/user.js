@@ -24,7 +24,6 @@ const user = {
     },
     actions: {
         LOGIN: async ({commit, dispatch}, {email, password}) => {
-            await axios.get('/sanctum/csrf-cookie').then(() => {
                 axios.post('/api/user/login', {email, password})
                     .then(response => {
                         console.log(response, "логин");
@@ -40,11 +39,8 @@ const user = {
                         console.log(err)
                         console.log(err.response)
                     })
-            })
         },
         REGISTER: async ({commit, dispatch}, {name, email, password, password_confirmation, is_admin}) => {
-            await axios.get('/sanctum/csrf-cookie')
-                .then(() => {
                     axios.post('/api/user/register', {name, email, password, password_confirmation, is_admin})
                         .then(res => {
                             localStorage.setItem('x_xsrf_token', res.data.Token.plainTextToken)
@@ -60,7 +56,6 @@ const user = {
                             commit("updateRegister", res.data)
                             router.push({name: 'BlogPage'})
                         })
-                })
         },
         TOKEN_IS_ADMIN: ({commit}) => {
             const token = localStorage.getItem('x_xsrf_token')
@@ -69,7 +64,7 @@ const user = {
             commit("updateTokenIsAdmin", {token, is_admin, name})
         },
         LOGOUT: async ({commit, dispatch}) => {
-            axios.post('/api/logout')
+            await axios.post('/api/logout')
                 .then(() => {
                     localStorage.removeItem('x_xsrf_token')
                     localStorage.removeItem('is admin')

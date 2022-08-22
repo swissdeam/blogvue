@@ -21,7 +21,7 @@ module.exports = defineConfig({
     //   }
     // }
 
-    proxy: 'http://127.1.0.1:8080'
+    //proxy: 'http://blog.test'
   }
   })
 

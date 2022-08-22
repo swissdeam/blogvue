@@ -1,10 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'http://127.1.0.1:8080',
-    timeout: 1000,
-    headers: {'X-Requested-With': 'XMLHttpRequest'},
-    withCredentials: true,
+    baseURL: 'http://blog.test',
 });
 
 instance.interceptors.request.use(function (config) {

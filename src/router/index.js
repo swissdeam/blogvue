@@ -10,6 +10,8 @@ import BlogPage from "../views/BlogPage";
 import UsersPosts from "@/views/UsersPosts";
 import SearchPosts from "@/views/SearchPosts";
 import FeedPosts from "@/views/FeedPosts";
+import UpdatePostPage from "@/views/UpdatePostPage";
+
 
 
 const routes=[
@@ -24,7 +26,12 @@ const routes=[
     component: CreatePostPage
   },
   {
-    path: '/posts',
+    path: '/posts/update/:post_id',
+    name: 'UpdatePostPage',
+    component: UpdatePostPage
+  },
+  {
+    path: '/user/posts',
     name: 'BlogPage',
     component: BlogPage
   },

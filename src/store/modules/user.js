@@ -18,6 +18,8 @@ const user = {
         delete_user:{},
         admin_delete_post:{},
         feed_show_post:{},
+        update_post:{},
+
 
 
     },
@@ -103,7 +105,7 @@ const user = {
             })
         },
         CREATE_POST: async ({commit}, {user_id ,title, body}) => {
-            axios.post('/api/posts/create',   {user_id, title, body} )
+            axios.post('/api/posts',   {user_id, title, body} )
                 .then(res => {
                     commit("updateCreatePost", res.data)
                     router.push({name: 'BlogPage'})
@@ -181,7 +183,18 @@ const user = {
                 console.log(error)
             })
         },
+        
 
+
+        UPDATE_POST: async ({commit}, {post_id}) => {
+            axios.post(`/api/posts/${post_id}`,   {post_id} )//TODO: add a show method
+                .then(res => {
+                    commit("updateUpdatePost", res.data)
+                    router.push({name: 'BlogPage'})
+                }).catch(error => {
+                console.log(error)
+            })
+        },
 
 
 
@@ -202,6 +215,8 @@ const user = {
         getDeleteUser: (state)=>state.delete_user,
         getAdminDeletePost: (state)=>state.admin_delete_post,
         getFeedPost: (state)=>state.feed_show_post,
+        getUpdatePost: (state)=>state.update_post,
+
 
     },
     mutations: {
@@ -219,6 +234,7 @@ const user = {
         updateAdminDeletePost: (state, payload) => (state.delete_post= payload),
         updateDeleteUser: (state, payload) => (state.delete_user= payload),
         updateFeedPost: (state, payload) => (state.feed_show_post= payload),
+        updateUpdatePost: (state, payload) => (state.update_post= payload),
 
 
     }

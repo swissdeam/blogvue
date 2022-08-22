@@ -37,7 +37,6 @@
 
 <script>
 
-import axios from "axios";
 import {mapActions, mapGetters} from "vuex";
 
 export default {
@@ -52,7 +51,7 @@ export default {
         },
         {
           title: "MY POSTS",
-          href: "/posts"
+          href: "/user/posts"
         },
         {
           title: "FEED",
@@ -66,7 +65,6 @@ export default {
   },
 
   mounted(){
-    this.getTest()
     this.TOKEN_IS_ADMIN()
   },
 
@@ -75,12 +73,6 @@ export default {
   },
 
   methods:{
-    getTest(){
-      axios.get('/api/test')
-          .then(res=>{
-            console.log(res)
-          })
-    },
     ...mapActions(["LOGOUT", "TOKEN_IS_ADMIN", "SEARCH_SHOW_POST"]),
 
     logout(){

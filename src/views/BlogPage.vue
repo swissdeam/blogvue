@@ -9,10 +9,12 @@
           <p class="card-text mt-5">
             {{post.body}}
           </p>
-          <small class="" >at {{formatDate(post.created_at)}}</small>
-<!--          <button class="btn btn-outline-primary">-->
-<!--            edit-->
-<!--          </button >-->
+          <small class="" >
+            at {{formatDate(post.created_at)}}
+          </small>
+         <router-link :to="{ name: 'UpdatePostPage', params: { post_id: post.id }}" class="btn btn-outline-primary">
+           edit
+         </router-link>
           <button v-on:click="DELETE_POST({post_id: post.id})" class="btn btn-outline-danger mx-2">delete</button>
         </div>
     </div>
@@ -22,7 +24,7 @@
     <div class="h3 mb-3 fw-normal alert w-100" role="alert">
       YOU DID NOT POST ANYTHING YET
     </div>
-    <router-link to="/user/blog/create-post" class="btn pink-btn">wanna create a post?</router-link>
+    <router-link to="/posts/create" class="btn pink-btn">wanna create a post?</router-link>
   </div>
 </template>
 

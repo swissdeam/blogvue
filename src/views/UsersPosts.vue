@@ -30,8 +30,6 @@ export default {
 
   name: "UsersPosts",
 
-
-
   beforeMount() {
   this.ADMIN_SHOW_POST({user_id: this.$route.params.user_id})
   },

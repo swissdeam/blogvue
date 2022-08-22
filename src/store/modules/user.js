@@ -24,8 +24,7 @@ const user = {
     },
     actions: {
         LOGIN: async ({commit, dispatch}, {email, password}) => {
-            await axios.get('/sanctum/csrf-cookie').then(() => {
-                axios.post('/api/user/login', {email, password})
+               await axios.post('/api/user/login', {email, password})
                     .then(response => {
                         console.log(response, "логин");
                         localStorage.setItem('x_xsrf_token', response.data.Token.plainTextToken)
@@ -40,12 +39,9 @@ const user = {
                         console.log(err)
                         console.log(err.response)
                     })
-            })
         },
         REGISTER: async ({commit, dispatch}, {name, email, password, password_confirmation, is_admin}) => {
-            await axios.get('/sanctum/csrf-cookie')
-                .then(() => {
-                    axios.post('/api/user/register', {name, email, password, password_confirmation, is_admin})
+                   await axios.post('/api/user/register', {name, email, password, password_confirmation, is_admin})
                         .then(res => {
                             localStorage.setItem('x_xsrf_token', res.data.Token.plainTextToken)
                             console.log(res.data)
@@ -60,7 +56,6 @@ const user = {
                             commit("updateRegister", res.data)
                             router.push({name: 'BlogPage'})
                         })
-                })
         },
         TOKEN_IS_ADMIN: ({commit}) => {
             const token = localStorage.getItem('x_xsrf_token')
@@ -161,7 +156,7 @@ const user = {
                 .then(res => {
                     commit("updateAdminShowPost", res.data)
                     console.log(res,"getAdminShowPost")
-                    router.push({path: `/admin/${user_id}/posts`})
+                    //router.push({path: `/admin/${user_id}/posts`})
                 }).catch(error => {
                 console.log(error)
             })
@@ -176,13 +171,11 @@ const user = {
                 console.log(error)
             })
         },
-        FEED_SHOW_POST: async ({commit, dispatch}) => {
+        FEED_SHOW_POST: async ({commit}) => {
             console.log(123)
-            axios.get(`/api/feed`)
+           axios.get(`/api/feed`)
                 .then(res => {
                     commit("updateFeedPost", res.data)
-
-                    dispatch(`FEED_POST_OWNER`)
                 }).catch(error => {
                 console.log(error)
             })

@@ -35,15 +35,11 @@ export default {
 
 
   name: "FeedPosts",
-  Data() {
-    return{
-
-    }
-  },
 
 
 
-  beforeMount() {
+
+beforeMount() {
   this.FEED_SHOW_POST()
   },
 
@@ -56,7 +52,7 @@ export default {
   methods:{
     ...mapActions(["FEED_SHOW_POST", "SEARCH_SHOW_POST"]),
     reversedPosts() {
-      console.log(this.getFeedPost)
+      console.log(this.getAdminShowPost)
       return this.getFeedPost.posts.reverse()
     },
 

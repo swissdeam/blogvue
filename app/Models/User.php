@@ -25,6 +25,15 @@ class User extends Authenticatable
         'is_admin',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+        self::deleted(function (self $user){
+            $user->post()->delete();
+        });
+    }
+
+
     /**
      * The attributes that should be hidden for serialization.
      *

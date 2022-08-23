@@ -1,6 +1,6 @@
 <template>
 
-     <h1>hoe</h1>
+    <h1>hoe</h1>
 
 </template>
 

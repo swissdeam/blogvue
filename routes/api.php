@@ -26,17 +26,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::get('/user/home', UserController::class);
-    Route::post('/user/blog/create-post', [CreatePostController::class, 'creating']);
-    Route::get('/user/blog', ShowPostsController::class);
-    Route::get('/feed', [ShowPostsController::class, 'feedPosts']);
-    Route::get('/user/search/{email}/posts', [ShowPostsController::class, 'searchUsers']);
-    Route::delete('/user/blog/{post_id}', function ($post_id) {
-        Post::where('id', $post_id)->delete();
-        return response()->json(["status" => "success"], 200);
-    });
 
-    Route::resource('posts', PostController::class);
+    Route::resource('posts', PostController::class); //Users Posts
+
+    Route::get('/user/home', UserController::class); //Personal info
+    Route::get('/feed', [ShowPostsController::class, 'feedPosts']); // feed department
+    Route::get('/user/search/{email}/posts', [ShowPostsController::class, 'searchUsers']); //search department
+
 
     Route::group(['middleware' => 'admin'], function () {
         Route::delete('/admin/{user_id}/posts/{post_id}', [AdminController::class, 'deletePost']);

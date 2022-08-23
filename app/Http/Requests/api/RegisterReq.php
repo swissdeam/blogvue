@@ -27,28 +27,11 @@ class RegisterReq extends FormRequest
      *
      */
 
-
-//    protected function validator(array $data)
-//    {
-//        return Validator::make($data, [
-//            'name' => ['required', 'string', 'max:255'],
-//            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-//            'password' => ['required', 'string', 'min:8', 'confirmed'],
-//        ]);
-//    }
-
-
     public function rules()
     {
 
-
-//            'name' => ['required', 'string', 'max:255'],
-//            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-//            'password' => ['required', 'string', 'min:8', 'confirmed'],
-//        ]);
-
         return [
-            'name'=>'required',
+            'name' => 'required',
             'email' => 'required|email',
             'password' => [
                 'required',
@@ -56,7 +39,7 @@ class RegisterReq extends FormRequest
                 'confirmed'
             ],
             'password_confirmation' => 'required_with:password|same:password',
-            'is_admin'=>'required'
+            'is_admin' => 'required'
         ];
     }
 }

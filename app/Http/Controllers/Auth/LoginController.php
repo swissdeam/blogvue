@@ -31,15 +31,15 @@ class LoginController extends Controller
 
         $exist = User::query()->where("email", $email)->first();
         if (!$exist) {
-            throw ValidationException::withMessages(["email"=>"Пользователя с таким email не существует"]);
+            throw ValidationException::withMessages(["email" => "Пользователя с таким email не существует"]);
         }
 
 
-        if (Hash::check($password, $exist->password)){
+        if (Hash::check($password, $exist->password)) {
             return response()->json();
         }
 
-        return response()->json(["message"=>"Неверный пароль"], 401);
+        return response()->json(["message" => "Неверный пароль"], 401);
 
     }
 

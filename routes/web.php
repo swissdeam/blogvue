@@ -2,7 +2,6 @@
 //
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,32 +14,9 @@
 */
 
 
-
-
-
 //Route::get('/{any}', function () {
 //    return view('index');
 //})->where('any','.*');
 
-//Route::prefix('user')->group(function () {
-//    Route::view('/blog', 'user.blog');
-
-
-/*Route::prefix('user')->group(function () {
-    Route::get('/blog', function () {
-        // Matches The "/admin/users" URL
-    });
-});*/
-
-/*Route::view('/get','get.index');
-Route::view('/get','get.index');
-Route::view('/get','get.index');
-Route::view('/get','get.index');*/
-//Route::view('/get','get.index');
-
 //Auth::routes();
-
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-//Route::get('{page}', MainController::class)->where('page','.*');
 

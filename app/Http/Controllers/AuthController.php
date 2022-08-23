@@ -5,49 +5,45 @@ namespace App\Http\Controllers;
 use App\Http\Requests\api\RegisterReq;
 use App\Models\User;
 use App\Http\Requests\api\LoginReq;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
-//use Illuminate\Support\Facades\Validator;
-//use Illuminate\Contracts\Validation\Validator;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 
 class AuthController extends Controller
 {
-    public function login(LoginReq $request): \Illuminate\Http\JsonResponse
+    public function login(LoginReq $request): JsonResponse
     {
 
         $user = User::where('email', $request->get('email'))->firstOrFail();
-        if (!Hash::check($request->get('password'), $user -> password)) {
-        throw new HttpException('404', 'Некорректный Пароль');
-    }
+        if (!Hash::check($request->get('password'), $user->password)) {
+            throw new HttpException('404', 'Некорректный Пароль');
+        }
         $token = $user->createToken('Token');
         $is_admin = $user->is_admin;
         $name = $user->name;
-        return response()->json(array_merge_recursive(['Token'=> $token], ['is_admin'=> $is_admin], ['name'=> $name]), 200);
-        //return Auth::user();
-
+        return response()->json(array_merge_recursive(['Token' => $token], ['is_admin' => $is_admin], ['name' => $name]), 200);
     }
 
-    public function register(RegisterReq $request): \Illuminate\Http\JsonResponse
+    public function register(RegisterReq $request): JsonResponse
     {
 
-//
-           $user = User::create([
-                'name' => $request->get('name'),
-                'email' => $request->get('email'),
-                'password' => Hash::make($request->get('password')),
-                'is_admin' => $request->get('is_admin'),
-            ]);
+        $user = User::create([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'password' => Hash::make($request->get('password')),
+            'is_admin' => $request->get('is_admin'),
+        ]);
 
-            $token = $user->createToken('Token');
-            $is_admin = $user->is_admin;
-            $name = $user->name;
-            return response()->json(array_merge_recursive(['Token'=> $token], ['is_admin'=> $is_admin], ['name'=>$name]), 200);
+        $token = $user->createToken('Token');
+        $is_admin = $user->is_admin;
+        $name = $user->name;
+        return response()->json(array_merge_recursive(['Token' => $token], ['is_admin' => $is_admin], ['name' => $name]), 200);
 
     }
 
 
-    public function logout(): \Illuminate\Http\JsonResponse
+    public function logout(): JsonResponse
     {
         return response()->json(['message' => 'logout'], 200);
     }

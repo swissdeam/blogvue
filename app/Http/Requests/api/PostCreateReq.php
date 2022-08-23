@@ -28,28 +28,12 @@ class PostCreateReq extends FormRequest
      */
 
 
-//    protected function validator(array $data)
-//    {
-//        return Validator::make($data, [
-//            'name' => ['required', 'string', 'max:255'],
-//            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-//            'password' => ['required', 'string', 'min:8', 'confirmed'],
-//        ]);
-//    }
-
-
     public function rules()
     {
 
-
-//            'name' => ['required', 'string', 'max:255'],
-//            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-//            'password' => ['required', 'string', 'min:8', 'confirmed'],
-//        ]);
-
         return [
-            'user_id'=>'required',
-            'title'=>'required',
+            'user_id' => 'required',
+            'title' => 'required',
             'body' => 'required'
         ];
     }

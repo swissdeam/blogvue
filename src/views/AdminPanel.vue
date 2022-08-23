@@ -19,10 +19,17 @@
       <td v-if="person.is_admin===1">admin</td>
       <td v-else>user</td>
       <td>
-        <router-link :to="{ name: 'UsersPosts', params: { user_id: person.id }}" v-if="person.id !== getUserInfo.user.id" v-on:click="ADMIN_SHOW_POST({user_id: person.id})" class="btn btn-success">User's Posts</router-link>
+        <router-link :to="{ name: 'UsersPosts', params: { user_id: person.id }}"
+                     v-if="person.id !== getUserInfo.user.id" v-on:click="ADMIN_SHOW_POST({user_id: person.id})"
+                     class="btn btn-success">
+          User's Posts
+        </router-link>
       </td>
-      <td >
-        <button v-if="person.id !== getUserInfo.user.id" v-on:click="DELETE_USER({user_id: person.id})" class="btn btn-outline-danger">Delete user</button>
+      <td>
+        <button v-if="person.id !== getUserInfo.user.id" v-on:click="DELETE_USER({user_id: person.id})"
+                class="btn btn-outline-danger">
+          Delete user
+        </button>
       </td>
     </tr>
     </tbody>
@@ -49,7 +56,7 @@ export default {
     ...mapGetters(["getAdmin", "getUserInfo", "getAdminShowPost"]),
   },
   methods: {
-    ...mapActions(["ADMIN","DELETE_USER", "USER_INFO", "ADMIN_SHOW_POST"]),
+    ...mapActions(["ADMIN", "DELETE_USER", "USER_INFO", "ADMIN_SHOW_POST"]),
   }
 
 }

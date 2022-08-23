@@ -9,54 +9,54 @@ const user = {
         logout: {},
         token_is_admin: {},
         admin: {},
-        user_info:{},
-        create_post:{},
-        show_post:{},
-        admin_show_post:{},
-        search_show_post:{},
-        delete_post:{},
-        delete_user:{},
-        admin_delete_post:{},
-        feed_show_post:{},
-        update_post:{},
-
+        user_info: {},
+        create_post: {},
+        show_post: {},
+        admin_show_post: {},
+        search_show_post: {},
+        delete_post: {},
+        delete_user: {},
+        admin_delete_post: {},
+        feed_show_post: {},
+        update_post: {},
+        show_one_post: {},
 
 
     },
     actions: {
         LOGIN: async ({commit, dispatch}, {email, password}) => {
-                axios.post('/api/user/login', {email, password})
-                    .then(response => {
-                        console.log(response, "логин");
-                        localStorage.setItem('x_xsrf_token', response.data.Token.plainTextToken)
-                        localStorage.setItem('is admin', response.data.is_admin)
-                        localStorage.setItem('name', response.data.name)
-                        dispatch("TOKEN_IS_ADMIN")
-                        commit("updateLogin", response.data)
-                        console.log(response, "логин")
-                        router.push({name: 'BlogPage'})
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        console.log(err.response)
-                    })
+            axios.post('/api/user/login', {email, password})
+                .then(response => {
+                    console.log(response, "логин");
+                    localStorage.setItem('x_xsrf_token', response.data.Token.plainTextToken)
+                    localStorage.setItem('is admin', response.data.is_admin)
+                    localStorage.setItem('name', response.data.name)
+                    dispatch("TOKEN_IS_ADMIN")
+                    commit("updateLogin", response.data)
+                    console.log(response, "логин")
+                    router.push({name: 'BlogPage'})
+                })
+                .catch(err => {
+                    console.log(err)
+                    console.log(err.response)
+                })
         },
         REGISTER: async ({commit, dispatch}, {name, email, password, password_confirmation, is_admin}) => {
-                    axios.post('/api/user/register', {name, email, password, password_confirmation, is_admin})
-                        .then(res => {
-                            localStorage.setItem('x_xsrf_token', res.data.Token.plainTextToken)
-                            console.log(res.data)
-                            if (res.data.is_admin) {
-                                res.data.is_admin = 1;
-                            } else {
-                                res.data.is_admin = 0;
-                            }
-                            localStorage.setItem('name', res.data.name)
-                            localStorage.setItem('is admin', res.data.is_admin)
-                            dispatch("TOKEN_IS_ADMIN")
-                            commit("updateRegister", res.data)
-                            router.push({name: 'BlogPage'})
-                        })
+            axios.post('/api/user/register', {name, email, password, password_confirmation, is_admin})
+                .then(res => {
+                    localStorage.setItem('x_xsrf_token', res.data.Token.plainTextToken)
+                    console.log(res.data)
+                    if (res.data.is_admin) {
+                        res.data.is_admin = 1;
+                    } else {
+                        res.data.is_admin = 0;
+                    }
+                    localStorage.setItem('name', res.data.name)
+                    localStorage.setItem('is admin', res.data.is_admin)
+                    dispatch("TOKEN_IS_ADMIN")
+                    commit("updateRegister", res.data)
+                    router.push({name: 'BlogPage'})
+                })
         },
         TOKEN_IS_ADMIN: ({commit}) => {
             const token = localStorage.getItem('x_xsrf_token')
@@ -76,18 +76,6 @@ const user = {
                 })
 
         },
-        // CHECK_ADMIN: ({commit, dispatch}) => {
-        //     axios.get('/api/admin/check')
-        //         .then(res => {
-        //             commit("updateCheckAdmin", res.data)
-        //             if (res.data === 1) {
-        //                 dispatch("ADMIN")
-        //             }
-        //             console.log(res.data, "vuex")
-        //         }).catch(error => {
-        //         console.log(error)
-        //     })
-        // },
         ADMIN: ({commit}) => {
             axios.get('/api/admin')
                 .then(res => {
@@ -104,8 +92,8 @@ const user = {
                 console.log(error)
             })
         },
-        CREATE_POST: async ({commit}, {user_id ,title, body}) => {
-            axios.post('/api/posts',   {user_id, title, body} )
+        CREATE_POST: async ({commit}, {user_id, title, body}) => {
+            axios.post('/api/posts', {user_id, title, body})
                 .then(res => {
                     commit("updateCreatePost", res.data)
                     router.push({name: 'BlogPage'})
@@ -123,7 +111,7 @@ const user = {
             })
         },
         DELETE_POST: async ({commit, dispatch}, {post_id}) => {
-            axios.delete(`/api/user/blog/${post_id}`)
+            axios.delete(`/api/posts/${post_id}`)
                 .then(res => {
                     commit("updateDeletePost", res.data)
                     dispatch("SHOW_POST")
@@ -156,7 +144,7 @@ const user = {
             axios.get(`/api/admin/${user_id}/posts`)
                 .then(res => {
                     commit("updateAdminShowPost", res.data)
-                    console.log(res,"getAdminShowPost")
+                    console.log(res, "getAdminShowPost")
                     router.push({path: `/admin/${user_id}/posts`})
                 }).catch(error => {
                 console.log(error)
@@ -183,11 +171,10 @@ const user = {
                 console.log(error)
             })
         },
-        
 
 
-        UPDATE_POST: async ({commit}, {post_id}) => {
-            axios.post(`/api/posts/${post_id}`,   {post_id} )//TODO: add a show method
+        UPDATE_POST: async ({commit}, {post_id, title, body}) => {
+            axios.put(`/api/posts/${post_id}`, {post_id, title, body})//TODO: add a show method
                 .then(res => {
                     commit("updateUpdatePost", res.data)
                     router.push({name: 'BlogPage'})
@@ -195,8 +182,16 @@ const user = {
                 console.log(error)
             })
         },
-
-
+        SHOW_ONE_POST: ({commit}, {post_id}) => {
+            axios.get(`/api/posts/${post_id}`)
+                .then(res => {
+                    commit("updateShowOnePost", res.data)
+                    //  dispatch(`UPDATE_POST`, {post_id})
+                    // router.push({path: `/posts/update/${post_id}`})
+                }).catch(error => {
+                console.log(error)
+            })
+        },
 
 
     },
@@ -211,11 +206,12 @@ const user = {
         getShowPost: (state) => state.show_post,
         getAdminShowPost: (state) => state.admin_show_post,
         getSearchShowPost: (state) => state.search_show_post,
-        getDeletePost: (state)=>state.delete_post,
-        getDeleteUser: (state)=>state.delete_user,
-        getAdminDeletePost: (state)=>state.admin_delete_post,
-        getFeedPost: (state)=>state.feed_show_post,
-        getUpdatePost: (state)=>state.update_post,
+        getDeletePost: (state) => state.delete_post,
+        getDeleteUser: (state) => state.delete_user,
+        getAdminDeletePost: (state) => state.admin_delete_post,
+        getFeedPost: (state) => state.feed_show_post,
+        getUpdatePost: (state) => state.update_post,
+        getShowOnePost: (state) => state.show_one_post,
 
 
     },
@@ -226,15 +222,16 @@ const user = {
         updateLogout: (state, payload) => (state.logout = payload),
         updateAdmin: (state, payload) => (state.admin = payload),
         updateUserInfo: (state, payload) => (state.user_info = payload),
-        updateCreatePost: (state, payload) => (state.create_post= payload),
-        updateShowPost: (state, payload) => (state.show_post= payload),
-        updateAdminShowPost: (state, payload) => (state.admin_show_post= payload),
-        updateSearchShowPost: (state, payload) => (state.search_show_post= payload),
-        updateDeletePost: (state, payload) => (state.delete_post= payload),
-        updateAdminDeletePost: (state, payload) => (state.delete_post= payload),
-        updateDeleteUser: (state, payload) => (state.delete_user= payload),
-        updateFeedPost: (state, payload) => (state.feed_show_post= payload),
-        updateUpdatePost: (state, payload) => (state.update_post= payload),
+        updateCreatePost: (state, payload) => (state.create_post = payload),
+        updateShowPost: (state, payload) => (state.show_post = payload),
+        updateAdminShowPost: (state, payload) => (state.admin_show_post = payload),
+        updateSearchShowPost: (state, payload) => (state.search_show_post = payload),
+        updateDeletePost: (state, payload) => (state.delete_post = payload),
+        updateAdminDeletePost: (state, payload) => (state.delete_post = payload),
+        updateDeleteUser: (state, payload) => (state.delete_user = payload),
+        updateFeedPost: (state, payload) => (state.feed_show_post = payload),
+        updateUpdatePost: (state, payload) => (state.update_post = payload),
+        updateShowOnePost: (state, payload) => (state.show_one_post = payload),
 
 
     }

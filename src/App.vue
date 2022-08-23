@@ -1,25 +1,25 @@
-<template >
-  <HeaderComp />
-    <div class="wrapper w-100 m-auto">
-<!--        <router-link v-if="token" :to="{name: 'GetPage'}">Get</router-link>-->
-<!--        <router-link v-if="!token" :to="{name: 'LoginPage'}">Login</router-link>-->
-<!--        <router-link v-if="!token" :to="{name: 'RegistrationPage'}">Registration</router-link>-->
-<!--        <router-link v-if="token" :to="{name: 'BlogPage'}">Blog</router-link>-->
-<!--        <router-link v-if="token" :to="{name: 'AdminPanel'}">admin</router-link>-->
-<!--        <router-link v-if="token" :to="{name: 'HomePage'}">Home</router-link>-->
-<!--        <a v-if="token" @click.prevent="logout" href=#>Logout</a>-->
-        <main class="container">
-            <router-view></router-view>
-        </main>
-    </div>
+<template>
+  <HeaderComp/>
+  <div class="wrapper w-100 m-auto">
+    <!--        <router-link v-if="token" :to="{name: 'GetPage'}">Get</router-link>-->
+    <!--        <router-link v-if="!token" :to="{name: 'LoginPage'}">Login</router-link>-->
+    <!--        <router-link v-if="!token" :to="{name: 'RegistrationPage'}">Registration</router-link>-->
+    <!--        <router-link v-if="token" :to="{name: 'BlogPage'}">Blog</router-link>-->
+    <!--        <router-link v-if="token" :to="{name: 'AdminPanel'}">admin</router-link>-->
+    <!--        <router-link v-if="token" :to="{name: 'HomePage'}">Home</router-link>-->
+    <!--        <a v-if="token" @click.prevent="logout" href=#>Logout</a>-->
+    <main class="container">
+      <router-view></router-view>
+    </main>
+  </div>
 </template>
 
 <script>
 import HeaderComp from "@/views/HeaderComp";
 
 export default {
-    name: "App",
-    components: {HeaderComp}
+  name: "App",
+  components: {HeaderComp}
 }
 
 //    data() {
@@ -74,6 +74,6 @@ export default {
 
 </script>
 
-<style >
+<style>
 
 </style>

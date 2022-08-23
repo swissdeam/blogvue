@@ -1,19 +1,19 @@
 <template>
   <div v-if="this.getFeedPost.posts.length !== 0">
-    <div  class="col-12 mb-3" v-for="post in reversedPosts()" :key="post.id">
-      <div  class="card bg-light mb-3" style="width: 75rem;">
+    <div class="col-12 mb-3" v-for="post in reversedPosts()" :key="post.id">
+      <div class="card bg-light mb-3" style="width: 75rem;">
         <div class="card-body">
-          <h5 class="card-title ">{{post.title}}</h5>
-          <p class="card-text mt-5">{{post.body}}</p>
+          <h5 class="card-title ">{{ post.title }}</h5>
+          <p class="card-text mt-5">{{ post.body }}</p>
 
-            <small >
-              by <a class="link-primary" v-on:click="SEARCH_SHOW_POST({email:post.user.email})">
-              {{post.user.name}} ({{post.user.email}})
-            </a> at {{formatDate(post.created_at)}}
-            </small>
+          <small>
+            by <a class="link-primary" v-on:click="SEARCH_SHOW_POST({email:post.user.email})">
+            {{ post.user.name }} ({{ post.user.email }})
+          </a> at {{ formatDate(post.created_at) }}
+          </small>
         </div>
+      </div>
     </div>
-  </div>
   </div>
 
   <div v-else class="text-center">
@@ -37,19 +37,16 @@ export default {
   name: "FeedPosts",
 
 
-
-
-beforeMount() {
-  this.FEED_SHOW_POST()
+  beforeMount() {
+    this.FEED_SHOW_POST()
   },
 
-
-  computed:{
+  computed: {
     ...mapGetters(["getUserInfo", "getFeedPost"]),
 
   },
 
-  methods:{
+  methods: {
     ...mapActions(["FEED_SHOW_POST", "SEARCH_SHOW_POST"]),
     reversedPosts() {
       console.log(this.getAdminShowPost)
@@ -61,7 +58,6 @@ beforeMount() {
     }
   },
 }
-
 
 
 </script>

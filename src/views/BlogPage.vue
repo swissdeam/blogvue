@@ -4,21 +4,22 @@
       <div class="card bg-light mb-3" style="width: 75rem;">
         <div class="card-body">
           <h5 class="card-title ">
-            {{post.title}}
+            {{ post.title }}
           </h5>
           <p class="card-text mt-5">
-            {{post.body}}
+            {{ post.body }}
           </p>
-          <small class="" >
-            at {{formatDate(post.created_at)}}
+          <small class="">
+            at {{ formatDate(post.created_at) }}
           </small>
-         <router-link :to="{ name: 'UpdatePostPage', params: { post_id: post.id }}" class="btn btn-outline-primary">
-           edit
-         </router-link>
+          <router-link :to="{ name: 'UpdatePostPage', params: { post_id: post.id }}" class="btn btn-outline-primary">
+            edit
+          </router-link>
+          <!--          <button v-on:click="SHOW_ONE_POST({post_id: post.id})" class="btn btn-outline-danger mx-2">edit</button>-->
           <button v-on:click="DELETE_POST({post_id: post.id})" class="btn btn-outline-danger mx-2">delete</button>
         </div>
+      </div>
     </div>
-  </div>
   </div>
   <div class="text-center" v-else>
     <div class="h3 mb-3 fw-normal alert w-100" role="alert">
@@ -35,8 +36,8 @@ import {mapActions, mapGetters} from "vuex";
 
 export default {
 
-  data(){
-    return{
+  data() {
+    return {
       formatDate(date) {
         return new Date(date).toLocaleString();
       }
@@ -51,21 +52,20 @@ export default {
   },
 
 
-  computed:{
+  computed: {
     ...mapGetters(["getShowPost"]),
   },
 
-  methods:{
-    ...mapActions(["SHOW_POST", "DELETE_POST"]),
+  methods: {
+    ...mapActions(["SHOW_POST", "DELETE_POST", "SHOW_ONE_POST"]),
 
-   reversedPosts() {
-     console.log(this.getShowPost)
+    reversedPosts() {
+      console.log(this.getShowPost)
       return this.getShowPost?.posts.reverse()
     }
 
   },
 }
-
 
 
 </script>

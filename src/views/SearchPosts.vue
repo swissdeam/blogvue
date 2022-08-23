@@ -1,19 +1,19 @@
 <template>
   <div v-if="this.getSearchShowPost.posts.length !== 0">
-  <h2 class="mb-5">{{this.getSearchShowPost.user.name}}'s Posts</h2>
-    <div  class="col-12 mb-3" v-for="post in this.reversedPosts()" :key="post.id">
+    <h2 class="mb-5">{{ this.getSearchShowPost.user.name }}'s Posts</h2>
+    <div class="col-12 mb-3" v-for="post in this.reversedPosts()" :key="post.id">
       <div class="card bg-light mb-3" style="width: 75rem;">
         <div class="card-body">
-          <h5 class="card-title ">{{post.title}}</h5>
-          <p class="card-text mt-5">{{post.body}}</p>
-          <small>at {{formatDate(post.created_at)}}</small>
+          <h5 class="card-title ">{{ post.title }}</h5>
+          <p class="card-text mt-5">{{ post.body }}</p>
+          <small>at {{ formatDate(post.created_at) }}</small>
         </div>
+      </div>
     </div>
-  </div>
   </div>
   <div v-else class="text-center">
     <div class="h3 mb-3 fw-normal alert w-100" role="alert">
-      {{this.getSearchShowPost.user.name}} DID NOT POST ANYTHING YET
+      {{ this.getSearchShowPost.user.name }} DID NOT POST ANYTHING YET
     </div>
   </div>
 </template>
@@ -25,14 +25,14 @@ import {mapActions, mapGetters} from "vuex";
 
 export default {
 
-data(){
-  return{
-    formatDate(date) {
-      return new Date(date).toLocaleString();
-    }
+  data() {
+    return {
+      formatDate(date) {
+        return new Date(date).toLocaleString();
+      }
 
-  }
-},
+    }
+  },
 
   beforeMount() {
     this.SEARCH_SHOW_POST({email: this.$route.params.email})
@@ -40,12 +40,12 @@ data(){
 
   name: "SearchPosts",
 
-  computed:{
-    ...mapGetters([ "getSearchShowPost"]),
+  computed: {
+    ...mapGetters(["getSearchShowPost"]),
 
   },
 
-  methods:{
+  methods: {
 
     ...mapActions(["SEARCH_SHOW_POST"]),
     reversedPosts() {
@@ -56,7 +56,6 @@ data(){
 
   },
 }
-
 
 
 </script>

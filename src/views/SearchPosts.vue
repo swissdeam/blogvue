@@ -6,7 +6,16 @@
         <div class="card-body">
           <h5 class="card-title ">{{ post.title }}</h5>
           <p class="card-text mt-5">{{ post.body }}</p>
-          <small>at {{ formatDate(post.created_at) }}</small>
+          <div style="margin-bottom: 10px">
+            <small>
+              at {{ formatDate(post.created_at) }}
+            </small>
+            <div>
+              <small v-if="post.created_at !== post.updated_at" class="text-muted">
+                edited
+              </small>
+            </div>
+          </div>
         </div>
       </div>
     </div>

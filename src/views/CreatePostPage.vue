@@ -14,7 +14,7 @@
         <span class="input-group-text">Title</span>
         <input v-model="title" class="form-control" aria-label="With textarea">
       </div>
-      <div class="border-inpt input-group w-50" style="height: 120px;">
+      <div class="border-inpt input-group w-50" style="height: 200px; width: 500px">
         <span class="input-group-text">Text</span>
         <textarea v-model="body" class="form-control" aria-label="With textarea" style="resize: none"></textarea>
       </div>

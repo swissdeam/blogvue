@@ -5,12 +5,18 @@
         <div class="card-body">
           <h5 class="card-title ">{{ post.title }}</h5>
           <p class="card-text mt-5">{{ post.body }}</p>
-
-          <small>
-            by <a class="link-primary" v-on:click="SEARCH_SHOW_POST({email:post.user.email})">
-            {{ post.user.name }} ({{ post.user.email }})
-          </a> at {{ formatDate(post.created_at) }}
-          </small>
+          <div style="margin-bottom: 10px">
+            <small>
+              by <a class="link-primary" v-on:click="SEARCH_SHOW_POST({email:post.user.email})">
+              {{ post.user.name }} ({{ post.user.email }})
+            </a> at {{ formatDate(post.created_at) }}
+            </small>
+            <div>
+              <small v-if="post.created_at !== post.updated_at" class="text-muted">
+                edited
+              </small>
+            </div>
+          </div>
         </div>
       </div>
     </div>

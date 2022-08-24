@@ -20,8 +20,6 @@ const user = {
         feed_show_post: {},
         update_post: {},
         show_one_post: {},
-
-
     },
     actions: {
         LOGIN: async ({commit, dispatch}, {email, password}) => {
@@ -174,7 +172,7 @@ const user = {
 
 
         UPDATE_POST: async ({commit}, {post_id, title, body}) => {
-            axios.put(`/api/posts/${post_id}`, {post_id, title, body})//TODO: add a show method
+            axios.put(`/api/posts/${post_id}`, {post_id, title, body})
                 .then(res => {
                     commit("updateUpdatePost", res.data)
                     router.push({name: 'BlogPage'})
@@ -232,8 +230,6 @@ const user = {
         updateFeedPost: (state, payload) => (state.feed_show_post = payload),
         updateUpdatePost: (state, payload) => (state.update_post = payload),
         updateShowOnePost: (state, payload) => (state.show_one_post = payload),
-
-
     }
 }
 export default user;

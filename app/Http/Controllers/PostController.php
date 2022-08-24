@@ -87,14 +87,19 @@ class PostController extends Controller
      */
     public function update($post_id, Request $request): JsonResponse
     {
-        $post = Post::where('id', $post_id)->first();
-        $post->update(
-            [
-                'title' => $request->get('title'),
-                'body' => $request->get('body'),
-            ]
-        );
-        return response()->json(["message" => "post edited", "post" => $post_id], 200);
+        $req_user = $request->user()->id;
+        $post_user = Post::where('id', $post_id)->first('user_id');
+        if ($req_user === $post_user->user_id) {
+            $post = Post::where('id', $post_id)->first();
+            $post->update(
+                [
+                    'title' => $request->get('title'),
+                    'body' => $request->get('body'),
+                ]
+            );
+            return response()->json(["message" => "post edited", "post" => $post_id, 'req_user' => $req_user, 'post_user' => $post_user->user_id], 200);
+        }
+        return response()->json(["message" => "not allow to update", 'req_user' => $req_user, 'post_user' => $post_user->user_id], 419);
     }
 
     /**
@@ -103,9 +108,14 @@ class PostController extends Controller
      * // * @param Post $post
      * @return JsonResponse
      */
-    public function destroy($post_id): JsonResponse
+    public function destroy($post_id, Request $request): JsonResponse
     {
-        Post::where('id', $post_id)->delete();
-        return response()->json(["status" => "success"], 200);
+        $req_user = $request->user()->id;
+        $post_user = Post::where('id', $post_id)->first('user_id');
+        if ($req_user === $post_user->user_id) {
+            Post::where('id', $post_id)->delete();
+            return response()->json(["status" => "success", 'req_user' => $req_user, 'post_user' => $post_user->user_id], 200);
+        }
+        return response()->json(["message" => "not allow to delete", 'req_user' => $req_user, 'post_user' => $post_user->user_id], 419);
     }
 }

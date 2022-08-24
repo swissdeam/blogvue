@@ -23,7 +23,7 @@
             <router-link :to="{ name: 'UpdatePostPage', params: { post_id: post.id }}" class="btn btn-outline-primary">
               edit
             </router-link>
-            <!--          <button v-on:click="SHOW_ONE_POST({post_id: post.id})" class="btn btn-outline-danger mx-2">edit</button>-->
+            <!--                      <button v-on:click="SHOW_ONE_POST({post_id: post.id})" class="btn btn-outline-danger mx-2">edit</button>-->
             <button v-on:click="DELETE_POST({post_id: post.id})" class="btn btn-outline-danger mx-2">delete</button>
           </div>
         </div>
@@ -61,7 +61,7 @@ export default {
 
 
   computed: {
-    ...mapGetters(["getShowPost"]),
+    ...mapGetters(["getShowPost",]),
   },
 
   methods: {

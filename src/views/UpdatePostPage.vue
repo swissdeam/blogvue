@@ -1,14 +1,14 @@
 <template>
   <main class="form-signin w-100 m-auto">
-    <form v-if="getShowOnePost.post" class="text-center" @submit.prevent="onSubmit">
+    <form v-if="getShowOnePost.post.title" class="text-center" @submit.prevent="onSubmit">
       <h1 class="h3 mb-3 fw-normal">POST EDIT</h1>
       <div class="border-inpt input-group mb-3" style="height: 50px; width: 500px">
         <span class="input-group-text">Title</span>
-        <input v-model="computedTitle" class="form-control" aria-label="With textarea">
+        <input :value="computedTitle" @input="onInptTitle" class="form-control" aria-label="With textarea">
       </div>
       <div class="border-inpt input-group w-50" style="height: 200px; width: 500px">
         <span class="input-group-text">Text</span>
-        <textarea v-model="computedBody" class="form-control" aria-label="With textarea"
+        <textarea :value="computedBody" class="form-control" @input="onInptBody" aria-label="With textarea"
                   style="resize: none"></textarea>
       </div>
       <button
@@ -32,6 +32,10 @@ import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "UpdatePostPage",
+  data: () => ({
+    title: null,
+    body: null
+  }),
   computed: {
     ...mapGetters(["getUpdatePost", "getUserInfo", "getShowOnePost"]),
 
@@ -48,8 +52,21 @@ export default {
     ...mapActions(["USER_INFO", "UPDATE_POST", "SHOW_ONE_POST"]),
 
     onSubmit() {
+      if (this.title === null) {
+        this.title = this.computedTitle
+      }
+      if (this.body === null) {
+        this.body = this.computedBody
+      }
       this.UPDATE_POST({post_id: this.$route.params.post_id, title: this.title, body: this.body})
     },
+
+    onInptTitle(event) {
+      this.title = event.target.value
+    },
+    onInptBody(event) {
+      this.body = event.target.value
+    }
 
 
   },
@@ -58,6 +75,7 @@ export default {
     this.USER_INFO()
     this.SHOW_ONE_POST({post_id: this.$route.params.post_id})
   },
+
 }
 
 

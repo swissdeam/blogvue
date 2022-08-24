@@ -3,6 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -14,7 +17,7 @@ class IsAdmin
      *
      * @param Request $request
      * @param Closure(Request): (Response|RedirectResponse) $next
-     * @return Response|RedirectResponse
+     * @return Application|Factory|View
      */
     public function handle(Request $request, Closure $next)
     {
@@ -22,7 +25,7 @@ class IsAdmin
         if ($request->user()->is_admin === 1) {
             return $next($request);
         } else {
-            return redirect("/"); //TODO: create redirect option (CORS error)
+            redirect("/");
         }
     }
 }

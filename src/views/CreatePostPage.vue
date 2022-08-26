@@ -21,9 +21,8 @@
 
       <button
           class="pink-btn btn btn-lg mt-4"
-          style="background:rgb(239, 154, 154);height: 50px; width: 230px"
+          style="height: 50px; width: 230px; border: solid grey 1px"
           type="submit"
-          :disabled="checkNull"
       >
         Done
       </button>

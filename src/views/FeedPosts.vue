@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.getFeedPost.posts.length !== 0">
+  <div v-if="getFeedPost && getFeedPost.posts.length !== 0">
     <div class="col-12 mb-3" v-for="post in reversedPosts()" :key="post.id">
       <div class="card bg-light mb-3" style="width: 75rem;">
         <div class="card-body">
@@ -55,7 +55,6 @@ export default {
   methods: {
     ...mapActions(["FEED_SHOW_POST", "SEARCH_SHOW_POST"]),
     reversedPosts() {
-      console.log(this.getAdminShowPost)
       return this.getFeedPost.posts.reverse()
     },
 

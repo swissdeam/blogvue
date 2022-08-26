@@ -1,12 +1,12 @@
 <template>
   <main class="form-signin w-100 m-auto">
-    <form v-if="getShowOnePost.post.title" class="text-center" @submit.prevent="onSubmit">
+    <form v-if="getShowOnePost.post.title" class="text-center align-items-center" @submit.prevent="onSubmit">
       <h1 class="h3 mb-3 fw-normal">POST EDIT</h1>
-      <div class="border-inpt input-group mb-3" style="height: 50px; width: 500px">
+      <div class="border-inpt input-group mb-3" style="height: 50px; width: 500px; margin: auto">
         <span class="input-group-text">Title</span>
         <input :value="computedTitle" @input="onInptTitle" class="form-control" aria-label="With textarea">
       </div>
-      <div class="border-inpt input-group w-50" style="height: 200px; width: 500px">
+      <div class="border-inpt input-group w-50" style="height: 200px; width: 500px;  margin: auto">
         <span class="input-group-text">Text</span>
         <textarea :value="computedBody" class="form-control" @input="onInptBody" aria-label="With textarea"
                   style="resize: none"></textarea>

@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::resource('posts', PostController::class); //Users Posts
@@ -38,7 +40,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::delete('/admin/{user_id}/posts/{post_id}', [AdminController::class, 'deletePost']);
         Route::delete('/admin/{user_id}', [AdminController::class, 'deleteUser']);
         Route::get('/admin/{user_id}/posts', [AdminController::class, 'showPosts']);
-        Route::get('/admin', AdminController::class);
+        Route::get('/admin', [AdminController::class, 'showUsers']);
     });
     Route::post('/logout', [AuthController::class, 'logout']);
 });

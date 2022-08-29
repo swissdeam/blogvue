@@ -26,13 +26,6 @@ class User extends Authenticatable
         'is_admin',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-        self::deleted(function (self $user) {
-            $user->post()->delete(); //TODO: doesnt work, check in Telescope
-        });
-    }
 
 
     /**

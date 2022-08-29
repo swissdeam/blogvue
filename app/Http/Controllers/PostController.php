@@ -44,11 +44,10 @@ class PostController extends Controller
      */
     public function store(PostCreateReq $request): JsonResponse
     {
-        Post::create([
-            'user_id' => $request->get('user_id'),
-            'title' => $request->get('title'),
-            'body' => $request->get('body'),
-        ]);
+        $data = $request->validated();
+        auth()->user()->post()->create(
+            $data
+        );
 
         return response()->json(["message" => "post created"], 200);
     }
@@ -110,12 +109,9 @@ class PostController extends Controller
      */
     public function destroy($post_id, Request $request): JsonResponse
     {
-        $req_user = $request->user()->id;
-        $post_user = Post::where('id', $post_id)->first('user_id');
-        if ($req_user === $post_user->user_id) {
-            Post::where('id', $post_id)->delete();
-            return response()->json(["status" => "success", 'req_user' => $req_user, 'post_user' => $post_user->user_id], 200);
-        }
-        return response()->json(["message" => "not allow to delete", 'req_user' => $req_user, 'post_user' => $post_user->user_id], 419);
+        $req_user = $request->user();
+        $post_user = $req_user->post()->where('id', $post_id)->findOrFail();
+        Post::where('id', $post_id)->delete();
+        return response()->json(["status" => "success", 'req_user' => $req_user, 'post_user' => $post_user->user_id], 200);
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 
 class AdminController extends Controller
 {
-    public function __invoke()
+    public function showUsers()
     {
         $people = User::all();
         return $people;
@@ -17,7 +17,8 @@ class AdminController extends Controller
 
     public function deleteUser($user_id): JsonResponse
     {
-        User::where('id', $user_id)->delete();
+        $user = User::query()->findOrFail($user_id);
+        $user->delete();
         return response()->json(["status" => "success", "user_id" => $user_id], 200);
     }
 

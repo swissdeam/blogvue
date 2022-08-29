@@ -25,7 +25,7 @@ class IsAdmin
         if ($request->user()->is_admin === 1) {
             return $next($request);
         } else {
-            redirect("/");
+            abort(403);
         }
     }
 }

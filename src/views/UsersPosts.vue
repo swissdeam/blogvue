@@ -5,6 +5,16 @@
         <div class="card-body">
           <h5 class="card-title ">{{ post.title }}</h5>
           <p class="card-text mt-5">{{ post.body }}</p>
+          <div style="margin-bottom: 10px">
+            <small>
+              at {{ formatDate(post.created_at) }}
+            </small>
+            <div>
+              <small v-if="post.created_at !== post.updated_at" class="text-muted">
+                edited at {{ formatDate(post.updated_at) }}
+              </small>
+            </div>
+          </div>
           <button v-on:click="this.ADMIN_DELETE_POST({user_id:this.$route.params.user_id, post_id: post.id})"
                   class="btn btn-outline-danger mx-2">delete
           </button>
@@ -28,6 +38,15 @@ import {mapActions, mapGetters} from "vuex";
 
 export default {
 
+
+  data() {
+    return {
+      formatDate(date) {
+        return new Date(date).toLocaleString();
+      }
+
+    }
+  },
 
   name: "UsersPosts",
 

@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller;
 
 class UserController extends Controller
 {
-    public function __invoke(Request $request): JsonResponse
+    public function showUserInfo(Request $request): JsonResponse
     {
         $user = $request->user();
         return response()->json(["user" => $user], 200);

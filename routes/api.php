@@ -26,17 +26,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::resource('posts', PostController::class); //Users Posts
 
-    Route::get('/user/home', UserController::class); //Personal info
+    Route::get('/user/home', [UserController::class, 'showUserInfo']); //Personal info
     Route::get('/feed', [ShowPostsController::class, 'feedPosts']); // feed department
     Route::get('/user/search/{email}/posts', [ShowPostsController::class, 'searchUsers']); //search department
 
 
-    Route::group(['middleware' => 'admin'], function () {
+    Route::group(['middleware' => 'admin'], function () {  // TODO: make a blade structure
         Route::delete('/admin/{user_id}/posts/{post_id}', [AdminController::class, 'deletePost']);
         Route::delete('/admin/{user_id}', [AdminController::class, 'deleteUser']);
         Route::get('/admin/{user_id}/posts', [AdminController::class, 'showPosts']);

@@ -18,9 +18,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-//Route::get('/{any}', function () {
-//    return view('index');
-//})->where('any','.*');
+Route::get('/admin/users', function (User $users) {
+    return $users->all();
+});
+
 
 //Auth::routes();
 

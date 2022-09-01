@@ -110,7 +110,7 @@ class PostController extends Controller
     public function destroy($post_id, Request $request): JsonResponse
     {
         $req_user = $request->user();
-        $post_user = $req_user->post()->where('id', $post_id)->findOrFail();
+        $post_user = $req_user->post()->where('id', $post_id)->findOrFail($post_id);
         Post::where('id', $post_id)->delete();
         return response()->json(["status" => "success", 'req_user' => $req_user, 'post_user' => $post_user->user_id], 200);
     }

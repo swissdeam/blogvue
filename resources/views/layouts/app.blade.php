@@ -10,9 +10,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     @env('local')
-        <script src="http://localhost:35729/livereload.js"></script>
+        <script livereload.js></script>
     @endenv
-    <!-- Scripts -->\Illuminate\Http\Resources\Json\JsonResource
+
     <script src="{{ mix('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
